@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:sc="http://www.novatec-gmbh.de/checkstyle-stereotype"
+	targetNamespace="http://www.novatec-gmbh.de/checkstyle-stereotype">
+	<xsd:element name="stereotypes" type="sc:StereotypesType" />
+	<xsd:complexType name="StereotypesType">
+		<xsd:sequence>
+			<xsd:element name="applicationpackage" type="sc:ApplicationPackagesType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="dependency" type="sc:DependencyType"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xsd:element name="stereotype" type="sc:StereotypeType"
+				minOccurs="1" maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="ApplicationPackagesType">
+		<xsd:attribute name="name" type="xsd:string" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="DependencyType">
+		<xsd:attribute name="from" type="xsd:IDREF" use="required" />
+		<xsd:attribute name="to" type="xsd:IDREF" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="StereotypeType">
+		<xsd:sequence>
+			<xsd:element name="postfix" minOccurs="0" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:attribute name="name" type="xsd:string" use="required" />
+					<xsd:attribute name="condition" type="sc:ConditionType"
+						use="required" />
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="annotation" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="annotationname" minOccurs="0"
+							maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:attribute name="name" type="xsd:string" use="required" />
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="name" type="xsd:string" use="optional" />
+					<xsd:attribute name="condition" type="sc:ConditionType"
+						use="required" />
+					<xsd:attribute name="allowoverride" type="xsd:boolean"
+						default="false" />
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="baseclass" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="baseclassname" minOccurs="0"
+							maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:attribute name="name" type="xsd:string" use="required" />
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="name" type="xsd:string" use="optional" />
+					<xsd:attribute name="condition" type="sc:ConditionType"
+						use="required" />
+					<xsd:attribute name="allowoverride" type="xsd:boolean"
+						default="false" />
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="interface" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="interfacename" minOccurs="0"
+							maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:attribute name="name" type="xsd:string" use="required" />
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+					<xsd:attribute name="name" type="xsd:string" use="optional" />
+					<xsd:attribute name="condition" type="sc:ConditionType"
+						use="required" />
+					<xsd:attribute name="allowoverride" type="xsd:boolean"
+						default="false" />
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="package" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:attribute name="name" type="xsd:string" use="required" />
+					<xsd:attribute name="condition" type="sc:ConditionType"
+						use="required" />
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:ID" use="required" />
+	</xsd:complexType>
+
+	<xsd:simpleType name="ConditionType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="sufficient" />
+			<xsd:enumeration value="necessary" />
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2016 NovaTec Consulting GmbH
+   
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+   
+        http://www.apache.org/licenses/LICENSE-2.0
+   
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+ -->
+
+<!DOCTYPE checkstyle-metadata PUBLIC
+"-//eclipse-cs//DTD Check Metadata 1.1//EN"
+"http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+<checkstyle-metadata>
+    <rule-group-metadata name="Other" priority="1600">
+
+        <rule-metadata name="%StereotypeCheck.name" internal-name="StereotypeCheck" parent="TreeWalker">
+            <description>%ArchitectureCheck.desc</description>
+            <property-metadata name="file" datatype="File" default-value="stereotype.xml">
+                <description>The filename where the stereotypes are defined</description>
+            </property-metadata>
+        </rule-metadata>
+    </rule-group-metadata>
+</checkstyle-metadata>

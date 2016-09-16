@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2016 NovaTec Consulting GmbH
+   
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+   
+        http://www.apache.org/licenses/LICENSE-2.0
+   
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+ -->
+
+<sc:stereotypes xmlns:sc="http://www.novatec-gmbh.de/checkstyle-stereotype"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.novatec-gmbh.de/checkstyle-stereotype checkstyle-stereotype.xsd ">
+	<applicationpackage name="info.novatec.architecture.check.testclasses"/>
+	
+	<dependency from="producer" to="producer"/>
+	<dependency from="producer" to="technicalservice"/>
+	<dependency from="producer" to="view"/>
+	<dependency from="producer" to="controller"/>
+	<dependency from="producer" to="businessoperation"/>
+	<dependency from="producer" to="businessadapter"/>
+	<dependency from="producer" to="transformer"/>
+	<dependency from="producer" to="businessservice"/>
+	<dependency from="producer" to="businessfunction"/>
+	<dependency from="producer" to="integrationservice"/>
+	<dependency from="producer" to="persistenceservice"/>
+	<dependency from="producer" to="entity"/>
+	<dependency from="producer" to="dto"/>
+	<dependency from="producer" to="util" />
+	
+	<dependency from="controller" to="businessoperation"/>
+	<dependency from="controller" to="controller"/>
+	<dependency from="controller" to="view"/>
+	<dependency from="controller" to="technicalservice"/>
+	<dependency from="controller" to="transformer"/>
+	<dependency from="controller" to="dto"/>
+	<dependency from="controller" to="util" />
+
+	<dependency from="view" to="view"/>
+	<dependency from="view" to="transformer"/>
+	<dependency from="view" to="dto"/>
+	<dependency from="view" to="util" />
+	
+	<dependency from="initfunction" to="transformer"/>
+	<dependency from="initfunction" to="dto"/>
+	<dependency from="initfunction" to="businessfunction"/>
+	<dependency from="initfunction" to="technicalservice"/>
+	<dependency from="initfunction" to="businessadapter"/>
+	<dependency from="initfunction" to="businessservice"/>
+	<dependency from="initfunction" to="integrationservice"/>
+	<dependency from="initfunction" to="persistenceservice"/>
+	<dependency from="initfunction" to="entity"/>	
+	<dependency from="initfunction" to="util" />
+		
+	<dependency from="businessservicebean" to="businessservice"/>
+	<dependency from="businessservicebean" to="businessfunction"/>
+	<dependency from="businessservicebean" to="technicalservice"/>
+	<dependency from="businessservicebean" to="persistenceservice"/>
+	<dependency from="businessservicebean" to="transformer"/>
+	<dependency from="businessservicebean" to="dto"/>
+	<dependency from="businessservicebean" to="integrationservice"/>
+	<dependency from="businessservicebean" to="util" />
+	
+	<dependency from="businessservice" to="dto"/>
+	
+	<dependency from="businessoperation" to="persistenceservice"/>
+	<dependency from="businessoperation" to="businessfunction"/>
+	<dependency from="businessoperation" to="businessadapter"/>
+	<dependency from="businessoperation" to="businessservice"/>
+	<dependency from="businessoperation" to="technicalservice"/>
+	<dependency from="businessoperation" to="transformer"/>
+	<dependency from="businessoperation" to="dto"/>
+	<dependency from="businessoperation" to="util" />
+	
+	<dependency from="businessfunction" to="businessfunction"/>
+	<dependency from="businessfunction" to="businessadapter"/>
+	<dependency from="businessfunction" to="businessservice"/>
+	<dependency from="businessfunction" to="persistenceservice"/>
+	<dependency from="businessfunction" to="technicalservice"/>
+	<dependency from="businessfunction" to="transformer"/>
+	<dependency from="businessfunction" to="dto"/>
+	<dependency from="businessfunction" to="integrationservice"/>
+	<dependency from="businessfunction" to="util" />
+
+	<dependency from="businessadapter" to="businessservice"/>
+	<dependency from="businessadapter" to="transformer"/>
+	<dependency from="businessadapter" to="dto"/>
+	<dependency from="businessadapter" to="util" />
+	
+	<dependency from="integrationservice" to="technicalservice"/>
+	<dependency from="integrationservice" to="transformer"/>
+	<dependency from="integrationservice" to="dto"/>
+	<dependency from="integrationservice" to="util" />
+		
+	<dependency from="persistenceservice" to="persistenceservice"/>
+	<dependency from="persistenceservice" to="technicalservice"/>
+	<dependency from="persistenceservice" to="transformer"/>
+	<dependency from="persistenceservice" to="dto"/>
+	<dependency from="persistenceservice" to="entity"/>
+	<dependency from="persistenceservice" to="util" />
+	
+	<dependency from="transformer" to="transformer"/>
+	<dependency from="transformer" to="dto"/>
+	<dependency from="transformer" to="entity"/>
+	<dependency from="transformer" to="util" />
+	
+	<dependency from="technicalservicebean" to="technicalservice"/>
+	<dependency from="technicalservicebean" to="businessfunction"/>
+	<dependency from="technicalservicebean" to="dto"/>
+	<dependency from="technicalservicebean" to="transformer"/>
+	<dependency from="technicalservicebean" to="util" />
+	
+	<dependency from="technicalservice" to="dto"/>
+	
+	<dependency from="dto" to="dto"/>
+	
+	<dependency from="util" to="util" />
+	<dependency from="util" to="dto" />
+	<dependency from="util" to="entity" />
+
+	<stereotype id="producer">
+		<postfix name="Producer" condition="sufficient"/>
+		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.cdi.Producer" condition="sufficient"/>
+		<package name=".*" condition="necessary"/>
+	</stereotype>
+
+	<stereotype id="view">
+		<postfix name="View" condition="sufficient"/>
+		<annotation condition="sufficient" allowoverride="true">
+		 	<annotationname	name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.ViewStereotype"/> 
+		</annotation>
+		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.View" condition="sufficient"/>
+		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.ul\.wt(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
+	</stereotype>
+
+	<stereotype id="controller">
+		<postfix name="Ctl" condition="sufficient"/>
+		<annotation name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.ControllerStereotype" condition="sufficient"/>
+		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.Controller" condition="sufficient"/>
+		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.ul\.wt(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
+	</stereotype>
+	
+	<stereotype id="initfunction">
+		<postfix name="If" condition="sufficient"/>
+		<annotation name="javax.ejb.Startup" condition="necessary"/>
+		<annotation name="javax.ejb.Singleton" condition="necessary"/>
+		<annotation name="javax.ejb.LocalBean" condition="necessary"/>
+		<interface name="info.novatec.architecture.check.testclasses.fwk.common.init.InitFunction" condition="sufficient"/>
+	</stereotype>
+
+	<stereotype id="businessservice">
+		<postfix name="Bs" condition="sufficient"/>
+		<annotation name="javax.ejb.Remote" condition="necessary"/>
+		<interface name="info.novatec.architecture.check.testclasses.core.fwk.api.bl.bs.BusinessService" condition="sufficient" allowoverride="true"/>
+		<package name="^([a-z]+[a-z0-9\.]*)\.shared(\.[a-z][a-z0-9]*)*\.bl\.bs(\.[a-z][a-z0-9]*)*$" condition="sufficient"/>
+	</stereotype>
+
+	<stereotype id="businessservicebean">
+		<postfix name="BsBean" condition="sufficient"/>
+		<annotation name="javax.ejb.Stateless" condition="necessary"/>
+		<annotation name="javax.interceptor.Interceptors" condition="necessary"/>
+		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.bl\.bs(\.[a-z][a-z0-9]*)*$" condition="sufficient"/>
+	</stereotype>
+	
+	<stereotype id="businessoperation">
+		<postfix name="Bo" condition="sufficient"/>
+		<annotation name="javax.ejb.LocalBean" condition="necessary"/>
+		<annotation name="javax.ejb.Stateless" condition="necessary"/>
+		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.bo.BusinessOperation" condition="sufficient"/>
+		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.bl\.bo(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
+	</stereotype>
+		
+	<stereotype id="businessfunction">
+		<postfix name="Bf" condition="sufficient"/>
+		<annotation condition="necessary">
+			<annotationname	name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.bf.BusinessFunctionStereotype"/>
+			<annotationname	name="javax.ejb.LocalBean"/>
+		</annotation>
+		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.bf.BusinessFunction" condition="sufficient"/>
+		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.bl\.bf(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
+	</stereotype>
+	
+	<stereotype id="businessadapter">
+		<postfix name="Ba" condition="sufficient"/>
+		<annotation name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.ba.BusinessAdapterStereotype" condition="necessary"/>
+		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.ba.BusinessAdapter" condition="sufficient"/>
+		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.bl\.ba(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
+	</stereotype>
+			
+	<stereotype id="integrationservice">
+		<postfix name="Is" condition="sufficient"/>
+		<annotation name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.is.IntegrationServiceStereotype" condition="sufficient"/>
+		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.is.IntegrationService" condition="sufficient"/>
+		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.bl\.is(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
+	</stereotype>
+	
+	<stereotype id="persistenceservice">
+		<postfix name="Ps" condition="sufficient"/>
+		<annotation name="javax.ejb.LocalBean" condition="necessary"/>
+		<annotation name="javax.ejb.Stateless" condition="necessary"/>
+		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.pl.ps.PersistenceService" condition="sufficient"/>
+		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.pl\.ps(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
+	</stereotype>
+
+	<stereotype id="entity">
+		<annotation name="javax.persistence.Entity" condition="sufficient"/> 
+		<baseclass condition="necessary" allowoverride="true">
+			<baseclassname	name="info.novatec.architecture.check.testclasses.core.fwk.api.data.dto.Pojo"/>
+		</baseclass>
+		<package name="^([a-z]+[a-z0-9\.]*)\.main\.data\.entity(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
+	</stereotype>
+	
+	<stereotype id="transformer">
+		<postfix name="Tf" condition="sufficient"/>
+		<annotation name="javax.enterprise.context.ApplicationScoped" condition="necessary"/>
+		<interface name="org.apache.commons.collections4.Transformer" condition="sufficient"/>
+		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.tf(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
+	</stereotype>
+		
+	<stereotype id="technicalservicebean">
+		<postfix name="TsBean" condition="sufficient"/>
+		<annotation condition="necessary">
+			<annotationname	name="javax.ejb.Startup"/>
+			<annotationname	name="javax.ejb.Singleton"/>
+			<annotationname	name="javax.ejb.Stateless"/>
+		</annotation>
+		<annotation name="javax.interceptor.Interceptors" condition="necessary"/>
+		<package name="^([a-z]+[a-z0-9\.]*)\.fwk\.main\.ts(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
+	</stereotype>
+	
+	<stereotype id="technicalservice">
+		<postfix name="Ts" condition="sufficient"/>
+		<annotation name="javax.ejb.Remote" condition="necessary"/>
+		<interface name="info.novatec.architecture.check.testclasses.core.fwk.api.ts.TechnicalService" condition="sufficient"/>
+		<package name="^([a-z]+[a-z0-9\.]*)\.fwk\.shared\.ts(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
+	</stereotype>
+	
+	<stereotype id="dto">
+		<postfix name="Dto" condition="sufficient"/>
+		<baseclass name="info.novatec.architecture.check.testclasses.core.fwk.api.data.dto.Pojo" condition="necessary"/>
+		<package name="^([a-z]+[a-z0-9\.]*)\.data\.dto(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
+	</stereotype>
+	
+	<stereotype id="util">
+		<postfix name="Util" condition="sufficient" />
+		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.util.Util" condition="necessary" />
+		<package name=".*" condition="necessary" />
+ 	</stereotype>
+</sc:stereotypes>
+
