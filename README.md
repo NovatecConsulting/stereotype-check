@@ -1,5 +1,9 @@
 # Stereotype Checker Readme
 
+
+## Status
+[![Build Status](https://travis-ci.org/NovaTecConsulting/stereotype-check.svg?branch=master)](https://travis-ci.org/NovaTecConsulting/stereotype-check)
+
 ## Installation of Eclipse Checkstyle Plugin
 
 In order to get the stereotype checker plugin running in eclipse, an appropriate checkstyle plugin version has to be installed. 
