@@ -45,7 +45,7 @@ public class StereotypeCheckConfiguration {
 	 * of allowed stereotypes. All strings in the map must match a key of the
 	 * {@link #stereotypeConfig}.
 	 */
-	private final Map<StereotypeIdentifier, Set<StereotypeIdentifier>> dependencies;
+	private final Map<StereotypeIdentifier, DependencyConfiguration> dependencies;
 
 	/**
 	 * The stereotypes. The key is the name of the stereotype.
@@ -58,12 +58,12 @@ public class StereotypeCheckConfiguration {
 	 * @param applicationPackageNames
 	 *            he package names checked by the stereotype check.
 	 * @param dependencies
-	 *            The map of all allowed dependencies.
+	 *            The map of all dependencies.
 	 * @param stereotypeConfig
 	 *            The stereotypes.
 	 */
 	StereotypeCheckConfiguration(Set<String> applicationPackageNames, Set<Pattern> excludedClasses,
-			Map<StereotypeIdentifier, Set<StereotypeIdentifier>> dependencies,
+			Map<StereotypeIdentifier, DependencyConfiguration> dependencies,
 			Map<StereotypeIdentifier, StereotypeConfiguration> stereotypeConfig) {
 		this.applicationPackageNames = applicationPackageNames;
 		this.excludedClasses = excludedClasses;
@@ -104,29 +104,21 @@ public class StereotypeCheckConfiguration {
 	 * @return true if the classname an annotation or interface or baseclass
 	 *         referenced in a stereotype.
 	 */
-	public boolean isPartOfStereotype(String classNameWithPackage) {
+	public boolean isPartOfAnyStereotype(String classNameWithPackage) {
 		for (StereotypeConfiguration config : stereotypeConfig.values()) {
-			for (AnnotationConfiguration anConfig : config.getAnnotationConfigs()) {
-				if (anConfig.getAnnotationNames().contains(classNameWithPackage)) {
-					return true;
-				}
-			}
-			if (config.getBaseClassNames().contains(classNameWithPackage)) {
-				return true;
-			}
-			if (config.getInterfaceNames().contains(classNameWithPackage)) {
+			if (config.isPartOfStereotype(classNameWithPackage)){
 				return true;
 			}
 		}
 		return false;
 	}
-
+	
 	/**
 	 * @return The map of all allowed dependencies. Maps from a stereotype-name
 	 *         to list of allowed stereotypes. All strings in the map must match
 	 *         a key of the {@link #stereotypeConfig}.
 	 */
-	public Map<StereotypeIdentifier, Set<StereotypeIdentifier>> getDependencies() {
+	public Map<StereotypeIdentifier, DependencyConfiguration> getDependencies() {
 		return dependencies;
 	}
 
