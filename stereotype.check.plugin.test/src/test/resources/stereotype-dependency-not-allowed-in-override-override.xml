@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sc:stereotypes xmlns:sc="http://www.novatec-gmbh.de/checkstyle-stereotype-override"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.novatec-gmbh.de/checkstyle-stereotype-override checkstyle-stereotype-override.xsd ">
+	
+	<dependency from="view" to="view" allowed="false"/>
+
+</sc:stereotypes>
+

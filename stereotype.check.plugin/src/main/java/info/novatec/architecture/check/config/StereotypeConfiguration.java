@@ -192,6 +192,30 @@ public class StereotypeConfiguration {
 	}
 
 	/**
+	 * Is the classname an annotation or interface or baseclass referenced in
+	 * this stereotype.
+	 * 
+	 * @param classNameWithPackage
+	 *            the full qualified classname
+	 * @return true if the classname an annotation or interface or baseclass
+	 *         referenced in this stereotype.
+	 */
+	public boolean isPartOfStereotype(String classNameWithPackage) {
+		for (AnnotationConfiguration anConfig : getAnnotationConfigs()) {
+			if (anConfig.getAnnotationNames().contains(classNameWithPackage)) {
+				return true;
+			}
+		}
+		if (getBaseClassNames().contains(classNameWithPackage)) {
+			return true;
+		}
+		if (getInterfaceNames().contains(classNameWithPackage)) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Check if override is allowed
 	 * 
 	 * @param configId

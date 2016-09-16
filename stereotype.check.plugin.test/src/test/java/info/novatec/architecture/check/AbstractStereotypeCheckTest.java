@@ -60,7 +60,7 @@ public class AbstractStereotypeCheckTest extends BaseFileSetCheckTestSupport {
 	 *            the stereotype check.
 	 * @return The configuration.
 	 */
-	private DefaultConfiguration createConfig(String configFilename) {
+	protected DefaultConfiguration createConfig(String configFilename) {
 		DefaultConfiguration main = createCheckConfig(TreeWalker.class);
 		final DefaultConfiguration checkConfig = createCheckConfig(StereotypeCheck.class);
 		checkConfig.addAttribute("file", configFilename);

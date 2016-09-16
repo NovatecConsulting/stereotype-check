@@ -15,9 +15,9 @@
     limitations under the License.
  -->
 
-<sc:stereotypes xmlns:sc="http://www.novatec-gmbh.de/checkstyle-stereotype"
+<sc:stereotypes xmlns:sc="http://www.novatec-gmbh.de/checkstyle-stereotype-override"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.novatec-gmbh.de/checkstyle-stereotype checkstyle-stereotype.xsd ">
+	xsi:schemaLocation="http://www.novatec-gmbh.de/checkstyle-stereotype-override checkstyle-stereotype-override.xsd ">
 	<stereotype id="view">
 		<annotation condition="sufficient">
 			<annotationname
