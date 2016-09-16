@@ -55,6 +55,7 @@ import org.xml.sax.SAXException;
 public class StereotypeCheckReader {
 
 	private static final String CHECKSTYLE_STEREOTYPE_XSD = "checkstyle-stereotype.xsd";
+	private static final String CHECKSTYLE_STEREOTYPE_OVERRIDE_XSD = "checkstyle-stereotype-override.xsd";
 	private static final Logger logger = Logger.getLogger(StereotypeCheckReader.class.getCanonicalName());
 
 	/**
@@ -76,9 +77,9 @@ public class StereotypeCheckReader {
 		 */
 		private final Set<Pattern> excludedClasses = new HashSet<>();
 		/** The dependencies. */
-		private Map<StereotypeIdentifier, Set<StereotypeIdentifier>> dependencies = new HashMap<StereotypeIdentifier, Set<StereotypeIdentifier>>();
+		private Map<StereotypeIdentifier, DependencyConfiguration> dependencies = new HashMap<>();
 		/** The stereotypes. */
-		private Map<StereotypeIdentifier, StereotypeConfiguration> configs = new HashMap<StereotypeIdentifier, StereotypeConfiguration>();
+		private Map<StereotypeIdentifier, StereotypeConfiguration> configs = new HashMap<>();
 		/** Temporary field holding the actual read stereotype. */
 		private StereotypeConfiguration config = null;
 		/**
@@ -149,11 +150,23 @@ public class StereotypeCheckReader {
 				} else if ("interface".equals(localName2) || "baseclass".equals(localName2)){
 					cfgIsOverridable = false;
 				} else if ("stereotypes".equals(localName2)) {
-					checkDependencyCycle(dependencies);
+					mergeDependencies();
+					checkDependencyCycle();
 				}
 				break;
 			}
 			return event;
+		}
+
+		public void mergeDependencies() {
+			if (additionalCheckCfg != null) {
+				for (StereotypeIdentifier id : additionalCheckCfg.getDependencies().keySet()) {
+					DependencyConfiguration dependencyConfiguration = dependencies.get(id);
+					DependencyConfiguration dependencyConfigurationAdditional = additionalCheckCfg.getDependencies()
+							.get(id);
+					dependencyConfiguration.merge(dependencyConfigurationAdditional);
+				}
+			}
 		}
 
 		private void addBaseClassName() {
@@ -229,6 +242,9 @@ public class StereotypeCheckReader {
 						+ config.getId() + ": " + location(this));
 			}
 			configs.put(config.getId(), config);
+			if (dependencies.get(config.getId()) == null) {
+				dependencies.put(config.getId(), new DependencyConfiguration(config.getId()));
+			}
 			config = null;
 		}
 
@@ -253,12 +269,14 @@ public class StereotypeCheckReader {
 		private void addDependency() {
 			StereotypeIdentifier from = StereotypeIdentifier.of(getAttributeValue(null, "from"));
 			StereotypeIdentifier to = StereotypeIdentifier.of(getAttributeValue(null, "to"));
-			Set<StereotypeIdentifier> toSet = dependencies.get(from);
-			if (toSet == null) {
-				toSet = new HashSet<StereotypeIdentifier>();
-				dependencies.put(from, toSet);
+			String allowedString = getAttributeValue(null, "allowed");
+
+			DependencyConfiguration dependencyConfig = dependencies.get(from);
+			if (dependencyConfig == null) {
+				dependencyConfig = new DependencyConfiguration(from);
+				dependencies.put(from, dependencyConfig);
 			}
-			toSet.add(to);
+			dependencyConfig.addTo(to, allowedString);
 		}
 
 		private void addApplicationPackage() {
@@ -271,20 +289,19 @@ public class StereotypeCheckReader {
 		}
 
 		/** Checks that there is no cycle over all depenencies. */
-		private void checkDependencyCycle(Map<StereotypeIdentifier, Set<StereotypeIdentifier>> dependencies) {
+		private void checkDependencyCycle() {
 			for (StereotypeIdentifier from : dependencies.keySet()) {
 				List<StereotypeIdentifier> cycle = new ArrayList<>();
-				checkDependencyCycleRecursive(dependencies, cycle, from);
+				checkDependencyCycleRecursive(cycle, from);
 			}
 
 		}
 
 		/** Helper method to check if there is a dependency cycle. */
-		private void checkDependencyCycleRecursive(Map<StereotypeIdentifier, Set<StereotypeIdentifier>> dependencies,
-				List<StereotypeIdentifier> cycle, StereotypeIdentifier from) {
-			Set<StereotypeIdentifier> toSet = dependencies.get(from);
-			if (toSet != null) {
-				for (StereotypeIdentifier toDependency : toSet) {
+		private void checkDependencyCycleRecursive(List<StereotypeIdentifier> cycle, StereotypeIdentifier from) {
+			DependencyConfiguration dependencyConfiguration = dependencies.get(from);
+			if (dependencyConfiguration != null) {
+				for (StereotypeIdentifier toDependency : dependencyConfiguration.getAllowedToDependencies()) {
 					if (!toDependency.equals(from)) {
 						List<StereotypeIdentifier> cycleInternal = new ArrayList<>(cycle);
 						cycleInternal.add(from);
@@ -292,7 +309,7 @@ public class StereotypeCheckReader {
 							throw new IllegalArgumentException("There is a cycle in dependency-configuration: "
 									+ StringUtils.join(cycleInternal, ", "));
 						}
-						checkDependencyCycleRecursive(dependencies, cycleInternal, toDependency);
+						checkDependencyCycleRecursive(cycleInternal, toDependency);
 					}
 				}
 			}
@@ -352,7 +369,8 @@ public class StereotypeCheckReader {
 	 * @throws SAXException
 	 * @throws IOException
 	 */
-	private static StereotypeCheckConfiguration read(File file, StereotypeCheckConfiguration additionalCheckCfg)
+	private static StereotypeCheckConfiguration read(File file, String checkstyleStereotypeXsd,
+			StereotypeCheckConfiguration additionalCheckCfg)
 			throws XMLStreamException, IllegalArgumentException, SAXException, IOException {
 		XMLStreamReader reader = XMLInputFactory.newInstance()
 				.createXMLStreamReader(new BufferedInputStream(new FileInputStream(file)));
@@ -360,7 +378,7 @@ public class StereotypeCheckReader {
 
 		SchemaFactory schemafactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 		Schema schema = schemafactory
-				.newSchema(StereotypeCheckReader.class.getClassLoader().getResource(CHECKSTYLE_STEREOTYPE_XSD));
+				.newSchema(StereotypeCheckReader.class.getClassLoader().getResource(checkstyleStereotypeXsd));
 
 		Validator validator = schema.newValidator();
 		validator.validate(new StAXSource(delegate));
@@ -385,7 +403,8 @@ public class StereotypeCheckReader {
 			try {
 				logger.info("File to override the default checkstyle-stereotype.xml found: "
 						+ stOverrideFile.getAbsolutePath());
-				additionalCheckCfg = StereotypeCheckReader.read(stOverrideFile, null);
+				additionalCheckCfg = StereotypeCheckReader.read(stOverrideFile, CHECKSTYLE_STEREOTYPE_OVERRIDE_XSD,
+						null);
 				logger.info("A file to override the default checkstyle-stereotype.xml found and loaded");
 
 			} catch (XMLStreamException | IllegalArgumentException | SAXException | IOException e) {
@@ -394,7 +413,7 @@ public class StereotypeCheckReader {
 			}
 		}
 		try {
-			return read(file, additionalCheckCfg);
+			return read(file, CHECKSTYLE_STEREOTYPE_XSD, additionalCheckCfg);
 		} catch (XMLStreamException | SAXException | IOException e) {
 			throw new IllegalArgumentException("File " + file.getAbsolutePath() + " is not valid: " + e.getMessage(),
 					e);

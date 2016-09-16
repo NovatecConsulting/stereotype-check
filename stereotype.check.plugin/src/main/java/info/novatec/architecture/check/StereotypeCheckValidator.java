@@ -145,7 +145,7 @@ public class StereotypeCheckValidator {
 	}
 
 	private void checkDependency(DetailAST ast, ClassInfo classToCheck, StereotypeConfiguration config) {
-		Set<StereotypeIdentifier> allowedDependencies = check.getConfig().getDependencies().get(config.getId());
+		Set<StereotypeIdentifier> allowedDependencies = check.getConfig().getDependencies().get(config.getId()).getAllowedToDependencies();
 		Set<StereotypeIdentifier> disallowedDependencies = new HashSet<StereotypeIdentifier>(
 				check.getConfig().getStereotypeConfig().keySet());
 		if (allowedDependencies != null) {
@@ -154,8 +154,8 @@ public class StereotypeCheckValidator {
 		for (StereotypeIdentifier to : disallowedDependencies) {
 			StereotypeConfiguration toConfig = check.getConfig().getStereotypeConfig().get(to);
 			for (String importedClass : classToCheck.getImports()) {
-				if (check.getConfig().isInApplicationPackage(importedClass)
-						|| check.getConfig().isPartOfStereotype(importedClass)) {
+				if ((check.getConfig().isInApplicationPackage(importedClass)
+						|| check.getConfig().isPartOfAnyStereotype(importedClass)) && !toConfig.isPartOfStereotype(importedClass)) {
 					if (toConfig.getPostfixCondition() == StereotypeCondition.sufficient
 							&& importedClass.endsWith(toConfig.getPostfix())) {
 						DetailAST importAst = classToCheck.getImportAst(importedClass);

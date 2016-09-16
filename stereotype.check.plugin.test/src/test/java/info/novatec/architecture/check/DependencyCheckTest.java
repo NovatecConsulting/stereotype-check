@@ -15,6 +15,12 @@
  *******************************************************************************/
 package info.novatec.architecture.check;
 
+import java.io.IOException;
+
+import org.junit.Test;
+
+import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+
 import info.novatec.architecture.check.testclasses.app1.main.bl.bo.SampleBo;
 import info.novatec.architecture.check.testclasses.app1.main.bl.bo.SampleReferencingAttributeBo;
 import info.novatec.architecture.check.testclasses.app1.main.bl.bo.SampleReferencingParameterBo;
@@ -28,18 +34,47 @@ import info.novatec.architecture.check.testclasses.app1.main.bl.is.DependencyIs;
 import info.novatec.architecture.check.testclasses.app1.main.bl.is.SampleWithDependencyOutsideApplicationIs;
 import info.novatec.architecture.check.testclasses.app1.main.bl.is.tf.SampleTf;
 import info.novatec.architecture.check.testclasses.app1.main.bl.is.tf.SampleWithWrongDepencencyTf;
-
-import java.io.IOException;
-
-import org.junit.Test;
-
-import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
+import info.novatec.architecture.check.testclasses.app1.main.ul.wt.test.SampleContainsTransformerView;
+import info.novatec.architecture.check.testclasses.app1.main.ul.wt.test.SampleViewContainsView;
 
 /**
  * Tests to check allowed and disallowed dependencies between stereotypes.
  *
  */
 public class DependencyCheckTest extends AbstractStereotypeCheckTest {
+	/**
+	 * The view {@link SampleViewContainsView} injects another view which is
+	 * allowed in the central file stereotype-dependency-not-allowed.xml but not
+	 * in the project specific file
+	 * stereotype-dependency-not-allowed-override.xml
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void disallowDependencyInOverride() throws Exception {
+		DefaultConfiguration main = createConfig(
+				"src/test/resources/stereotype-dependency-not-allowed-in-override.xml");
+		final String[] expected = {
+				"Disallowed dependency from stereotype view to stereotype view: info.novatec.architecture.check.testclasses.app1.main.ul.wt.test.SampleCoreView" };
+		verify(main, getPath(SampleViewContainsView.class), expected);
+	}
+
+	/**
+	 * The view {@link SampleContainsTransformerView} injects a transformer
+	 * which is allowed in the central file
+	 * stereotype-dependency-not-allowed.xml and in the project specific file
+	 * stereotype-dependency-not-allowed-override.xml
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void allowedDependencyInOverride() throws Exception {
+		DefaultConfiguration main = createConfig(
+				"src/test/resources/stereotype-dependency-not-allowed-in-override.xml");
+		final String[] expected = {};
+		verify(main, getPath(SampleContainsTransformerView.class), expected);
+	}
+
 	/**
 	 * The integration service {@link DependencyIs} has a allowed dependency to
 	 * transformer {@link SampleTf}.

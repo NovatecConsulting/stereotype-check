@@ -15,7 +15,8 @@
  *******************************************************************************/
 package info.novatec.architecture.check.config;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,6 +33,7 @@ import info.novatec.architecture.check.StereotypeCheck;
 import info.novatec.architecture.check.testclasses.app1.main.bl.is.SampleIs;
 import info.novatec.architecture.check.testclasses.app1.main.data.entity.AdditionalOperation;
 import info.novatec.architecture.check.testclasses.app1.main.ul.wt.test.SampleApp1View;
+import info.novatec.architecture.check.testclasses.app1.main.ul.wt.test.SampleContainsTransformerView;
 import info.novatec.architecture.check.testclasses.app1.shared.bl.bs.SampleApiBs;
 
 /**
@@ -39,6 +41,27 @@ import info.novatec.architecture.check.testclasses.app1.shared.bl.bs.SampleApiBs
  *
  */
 public class StereotypeCheckConfigurationReaderTest extends AbstractStereotypeCheckTest {
+	/**
+	 * Read a file where the project specific configuration allows a dependency
+	 * which is not allowed in the central configuration.
+	 * 
+	 * @throws Exception
+	 *             in case of an unexpected test execution
+	 */
+	@Test
+	public void dependencyAllowedInOverrideFail() throws Exception {
+		DefaultConfiguration main = createConfig(
+				"src/test/resources/stereotype-dependency-allowed-in-override-fail.xml");
+		final String[] expected = {};
+		try {
+			verify(main, getPath(SampleContainsTransformerView.class), expected);
+			fail("CheckstyleException should have been thrown");
+		} catch (CheckstyleException ex) {
+			assertThat(ex.getCause()).isNotNull().isInstanceOf(IllegalArgumentException.class);
+			assertThat(ex.getCause().getMessage()).contains(
+					"The additional configuration for from dependency transformer contains a dependency to transformer that is not part of the central configuration.");
+		}
+	}
 
 	/**
 	 * If the stereotype configuration file is not valid against the XSD.
@@ -196,7 +219,7 @@ public class StereotypeCheckConfigurationReaderTest extends AbstractStereotypeCh
 				.read(new File("src/test/resources/dependencyDuplicateFrom.xml"));
 
 		Set<StereotypeIdentifier> dependencies = config.getDependencies()
-				.get(StereotypeIdentifier.of("integrationservice"));
+				.get(StereotypeIdentifier.of("integrationservice")).getAllowedToDependencies();
 
 		assertThat(dependencies).contains(StereotypeIdentifier.of("transformer"),
 				StereotypeIdentifier.of("transformer2"));
