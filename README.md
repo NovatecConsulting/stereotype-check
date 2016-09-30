@@ -3,6 +3,7 @@
 
 ## Status
 [![Build Status](https://travis-ci.org/NovaTecConsulting/stereotype-check.svg?branch=master)](https://travis-ci.org/NovaTecConsulting/stereotype-check)
+[![Coverage Status](https://coveralls.io/repos/github/NovaTecConsulting/stereotype-check/badge.svg?branch=master)](https://coveralls.io/github/NovaTecConsulting/stereotype-check?branch=master)
 
 ## Installation of Eclipse Checkstyle Plugin
 

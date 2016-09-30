@@ -32,6 +32,7 @@
 
 	<properties>
 		<tycho-version>0.25.0</tycho-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<repositories>
@@ -88,6 +89,15 @@
 						</environment>
 					</environments>
 				</configuration>
+			</plugin>
+
+			<plugin>
+			    <groupId>org.eluder.coveralls</groupId>
+			    <artifactId>coveralls-maven-plugin</artifactId>
+			    <version>4.3.0</version>
+			    <configuration>
+			    	<jacocoReports>${project.basedir}/stereotype.check.plugin.test/target/jacoco/jacoco.xml</jacocoReports>
+		    	</configuration>
 			</plugin>
 		</plugins>
 
