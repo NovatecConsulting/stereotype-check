@@ -7,6 +7,8 @@
 		<xsd:sequence>
 			<xsd:element name="applicationpackage" type="sc:ApplicationPackagesType"
 				minOccurs="0" maxOccurs="unbounded" />
+		<xsd:element name="excludedclasses" type="sc:ExcludedClasses" 
+				minOccurs="0" maxOccurs="unbounded"/>
 			<xsd:element name="dependency" type="sc:DependencyType"
 				minOccurs="0" maxOccurs="unbounded" />
 			<xsd:element name="stereotype" type="sc:StereotypeType"
@@ -16,6 +18,10 @@
 
 	<xsd:complexType name="ApplicationPackagesType">
 		<xsd:attribute name="name" type="xsd:string" use="required" />
+	</xsd:complexType>
+	
+	<xsd:complexType name="ExcludedClasses">
+		<xsd:attribute name="regexp" type="xsd:string" use="required"/>
 	</xsd:complexType>
 
 	<xsd:complexType name="DependencyType">

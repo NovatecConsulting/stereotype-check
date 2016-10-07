@@ -58,8 +58,8 @@ public class StereotypeCheckValidator {
 	 */
 	void validate(DetailAST ast, ClassInfo classToCheck) {
 		logger.fine("ClassInfo " + classToCheck);
-		if (classToCheck.isTestclass()) {
-			logger.fine("Class is a test class no check is done.");
+		if (classToCheck.isExcluded(check.getConfig().getExcludedClasses())) {
+			logger.fine("Class is a excluded by configuration.");
 			return;
 		}
 		// check
