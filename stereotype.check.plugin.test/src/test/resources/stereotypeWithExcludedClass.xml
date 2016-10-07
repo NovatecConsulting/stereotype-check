@@ -20,8 +20,6 @@
 	xsi:schemaLocation="http://www.novatec-gmbh.de/checkstyle-stereotype checkstyle-stereotype.xsd ">
 	<applicationpackage name="info.novatec.architecture.check.testclasses"/>
 	
-	<excludedclasses regexp=".*Test"/>
-	
 	<dependency from="producer" to="producer"/>
 	<dependency from="producer" to="technicalservice"/>
 	<dependency from="producer" to="view"/>

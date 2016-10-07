@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 
@@ -239,6 +240,21 @@ class ClassInfo {
 		}
 		return result;
 	}
+	
+
+	/**
+	 * Checks if the class matches one of the regular expressions of the excluded classes.
+	 * @param excludedClasses regular expressions of the excluded classes.
+	 * @return true if it matches
+	 */
+	public boolean isExcluded(Set<Pattern> excludedClasses) {
+		for (Pattern pattern : excludedClasses) {
+			if (pattern.matcher(packageName+"."+className).matches()){
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * Is the class in the given package.
@@ -249,16 +265,6 @@ class ClassInfo {
 	 */
 	public boolean isInPackage(String packageName) {
 		return packageName != null && this.packageName.matches(packageName);
-	}
-
-	/**
-	 * Is the class a Test class that should not be checked.<br>
-	 * TODO maybe this should be configured
-	 * 
-	 * @return if the class should not be checked.
-	 */
-	public boolean isTestclass() {
-		return className != null && className.endsWith("Test");
 	}
 
 	/**
@@ -456,5 +462,6 @@ class ClassInfo {
 				+ baseClassesWithPackage + ", annotationsWithPackage=" + annotationsWithPackage + ", classAst="
 				+ classAst + ", isInterface=" + isInterface + ", isAbstract=" + isAbstract + "]";
 	}
+
 
 }

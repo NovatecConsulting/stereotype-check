@@ -476,9 +476,22 @@ public class StereotypeCheckTest extends AbstractStereotypeCheckTest {
 	 *             in case of an unexpected test execution
 	 */
 	@Test
-	public void testTestClass() throws Exception {
+	public void testTestClassNotExcluded() throws Exception {
 		DefaultConfiguration main = createDefaultConfig();
 		final String[] expected = {};
+		verify(main, getPath(SampleTest.class), expected);
+	}
+	
+	/**
+	 * Ignore all classes that ends to Test.
+	 * 
+	 * @throws Exception
+	 *             in case of an unexpected test execution
+	 */
+	@Test
+	public void testTestClassExcluded() throws Exception {
+		DefaultConfiguration main = createConfig("src/test/resources/stereotypeWithExcludedClass.xml");
+		final String[] expected = {"Stereotype businessservicebean: missing annotation javax.ejb.Stateless or javax.interceptor.Interceptors", "Stereotype businessservicebean: missing postfix BsBean"};
 		verify(main, getPath(SampleTest.class), expected);
 	}
 

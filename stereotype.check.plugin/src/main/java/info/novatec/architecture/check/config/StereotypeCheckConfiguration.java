@@ -17,6 +17,7 @@ package info.novatec.architecture.check.config;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * This class holds all configuration informations from the stereotype check
@@ -32,6 +33,13 @@ public class StereotypeCheckConfiguration {
 	 * packages and its subpackages are ignored
 	 */
 	private final Set<String> applicationPackageNames;
+
+	/**
+	 * The set of regular expressions of classes that are excluded from the
+	 * check.
+	 */
+	private final Set<Pattern> excludedClasses;
+
 	/**
 	 * The map of all allowed dependencies. Maps from a stereotype-name to list
 	 * of allowed stereotypes. All strings in the map must match a key of the
@@ -54,10 +62,11 @@ public class StereotypeCheckConfiguration {
 	 * @param stereotypeConfig
 	 *            The stereotypes.
 	 */
-	StereotypeCheckConfiguration(Set<String> applicationPackageNames,
+	StereotypeCheckConfiguration(Set<String> applicationPackageNames, Set<Pattern> excludedClasses,
 			Map<StereotypeIdentifier, Set<StereotypeIdentifier>> dependencies,
 			Map<StereotypeIdentifier, StereotypeConfiguration> stereotypeConfig) {
 		this.applicationPackageNames = applicationPackageNames;
+		this.excludedClasses = excludedClasses;
 		this.dependencies = dependencies;
 		this.stereotypeConfig = stereotypeConfig;
 	}
@@ -126,6 +135,13 @@ public class StereotypeCheckConfiguration {
 	 */
 	public Map<StereotypeIdentifier, StereotypeConfiguration> getStereotypeConfig() {
 		return stereotypeConfig;
+	}
+
+	/**
+	 * @return the excludedClasses
+	 */
+	public Set<Pattern> getExcludedClasses() {
+		return excludedClasses;
 	}
 
 }
