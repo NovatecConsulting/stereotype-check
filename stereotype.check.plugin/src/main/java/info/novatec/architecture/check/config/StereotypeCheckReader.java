@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import javax.xml.XMLConstants;
 import javax.xml.stream.Location;
@@ -69,6 +70,11 @@ public class StereotypeCheckReader {
 		private static final String ALLOWOVERRIDE = "allowoverride";
 		/** The names of all packages belonging to the application. */
 		private Set<String> applicationPackageNames = new HashSet<String>();
+		/**
+		 * The set of regular expressions of classes that are excluded from the
+		 * check.
+		 */
+		private final Set<Pattern> excludedClasses = new HashSet<>();
 		/** The dependencies. */
 		private Map<StereotypeIdentifier, Set<StereotypeIdentifier>> dependencies = new HashMap<StereotypeIdentifier, Set<StereotypeIdentifier>>();
 		/** The stereotypes. */
@@ -130,6 +136,8 @@ public class StereotypeCheckReader {
 					addBaseClass();
 				} else if ("baseclassname".equals(localName)) {
 					addBaseClassName();
+				} else if ("excludedclasses".equals(localName)){
+					addExcludedClasses();
 				}
 				break;
 			case XMLStreamConstants.END_ELEMENT:
@@ -256,6 +264,11 @@ public class StereotypeCheckReader {
 		private void addApplicationPackage() {
 			applicationPackageNames.add(getAttributeValue(null, "name"));
 		}
+		
+		private void addExcludedClasses() {
+			String regexp = getAttributeValue(null, "regexp");
+			excludedClasses.add(Pattern.compile(regexp));
+		}
 
 		/** Checks that there is no cycle over all depenencies. */
 		private void checkDependencyCycle(Map<StereotypeIdentifier, Set<StereotypeIdentifier>> dependencies) {
@@ -321,7 +334,7 @@ public class StereotypeCheckReader {
 		 * @return the configuration read from the file.
 		 */
 		public StereotypeCheckConfiguration getConfig() {
-			return new StereotypeCheckConfiguration(applicationPackageNames, dependencies, configs);
+			return new StereotypeCheckConfiguration(applicationPackageNames, excludedClasses, dependencies, configs);
 		}
 	}
 
