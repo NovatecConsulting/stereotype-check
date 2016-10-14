@@ -3,6 +3,7 @@
 
 ## Status
 [![Build Status](https://travis-ci.org/NovaTecConsulting/stereotype-check.svg?branch=master)](https://travis-ci.org/NovaTecConsulting/stereotype-check)
+[![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 ## Installation of Eclipse Checkstyle Plugin
 
