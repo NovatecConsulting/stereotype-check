@@ -158,7 +158,7 @@
 	<stereotype id="businessservice">
 		<postfix name="Bs" condition="sufficient"/>
 		<annotation name="javax.ejb.Remote" condition="necessary"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.api.bl.bs.BusinessService" condition="sufficient"  allowoverride="true"/>
+		<interface name="info.novatec.architecture.check.testclasses.core.fwk.api.bl.bs.BusinessService" condition="sufficient"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.shared(\.[a-z][a-z0-9]*)*\.bl\.bs(\.[a-z][a-z0-9]*)*$" condition="sufficient"/>
 	</stereotype>
 
@@ -211,7 +211,7 @@
 
 	<stereotype id="entity">
 		<annotation name="javax.persistence.Entity" condition="sufficient"/> 
-		<baseclass condition="necessary" allowoverride="true">
+		<baseclass condition="necessary">
 			<baseclassname name="info.novatec.architecture.check.testclasses.core.fwk.api.data.dto.Pojo"/>
 		</baseclass>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main\.data\.entity(\.[a-z][a-z0-9]*)*$" condition="necessary"/>

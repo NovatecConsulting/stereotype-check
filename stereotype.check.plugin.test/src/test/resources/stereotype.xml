@@ -212,7 +212,7 @@
 
 	<stereotype id="entity">
 		<annotation name="javax.persistence.Entity" condition="sufficient"/> 
-		<baseclass condition="necessary" allowoverride="true">
+		<baseclass condition="necessary">
 			<baseclassname name="info.novatec.architecture.check.testclasses.core.fwk.api.data.dto.Pojo"/>
 			<baseclassname name="info.novatec.architecture.check.testclasses.app1.main.data.entity.common.BaseEntity"/>
 			<baseclassname name="info.novatec.architecture.check.testclasses.app1.main.data.entity.CustomerConcern"/>
