@@ -63,7 +63,7 @@ public class StereotypeCheckReader {
 	 * @author Volker Koch (volker.koch@novatec-gmbh.de)
 	 *
 	 */
-	private static final class StreotypeCheckConfigurationReader extends StreamReaderDelegate {
+	private static final class StereotypeCheckConfigurationReader extends StreamReaderDelegate {
 
 		/** The names of all packages belonging to the application. */
 		private Set<String> applicationPackageNames = new HashSet<String>();
@@ -91,7 +91,7 @@ public class StereotypeCheckReader {
 		 * @param additionalCheckCfg
 		 *            The additional config previously read.
 		 */
-		private StreotypeCheckConfigurationReader(XMLStreamReader reader,
+		private StereotypeCheckConfigurationReader(XMLStreamReader reader,
 				StereotypeCheckConfiguration additionalCheckCfg) {
 			super(reader);
 			this.additionalCheckCfg = additionalCheckCfg;
@@ -184,7 +184,7 @@ public class StereotypeCheckReader {
 		}
 
 		private void addAnnotationName() {
-			if (additionCfg != null && cfgIsOverridable(getAttributeValue(null, "allow0verride"),
+			if (additionCfg != null && cfgIsOverridable(getAttributeValue(null, "allowoverride"),
 					ConfigurationName.ANNOTATIONNAME, config)) {
 				for (AnnotationConfiguration annotationCfg : additionCfg.getAnnotationConfigs()) {
 					annotationConfig.getAnnotationNames().addAll(annotationCfg.getAnnotationNames());
@@ -345,7 +345,7 @@ public class StereotypeCheckReader {
 			throws XMLStreamException, IllegalArgumentException, SAXException, IOException {
 		XMLStreamReader reader = XMLInputFactory.newInstance()
 				.createXMLStreamReader(new BufferedInputStream(new FileInputStream(file)));
-		StreotypeCheckConfigurationReader delegate = new StreotypeCheckConfigurationReader(reader, additionalCheckCfg);
+		StereotypeCheckConfigurationReader delegate = new StereotypeCheckConfigurationReader(reader, additionalCheckCfg);
 
 		SchemaFactory schemafactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 		Schema schema = schemafactory
