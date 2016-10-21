@@ -18,17 +18,25 @@
 <sc:stereotypes xmlns:sc="http://www.novatec-gmbh.de/checkstyle-stereotype"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.novatec-gmbh.de/checkstyle-stereotype checkstyle-stereotype.xsd ">
+	
 	<stereotype id="view">
 		<annotation condition="sufficient">
-			<annotationname
-				name="info.novatec.architecture.check.testclasses.app1.main.ul.App1TypedViewStereotype" />
+			<annotationname	name="info.novatec.architecture.check.testclasses.app1.main.ul.App1TypedViewStereotype" />
 		</annotation>
+	</stereotype>
+	
+	<stereotype id="view2">
+		<annotation name="info.novatec.architecture.check.testclasses.app1.main.ul.App1TypedViewStereotype2" condition="sufficient"/>
 	</stereotype>
 
 	<stereotype id="businessservice">
-		<interface
-			name="info.novatec.architecture.check.testclasses.core.fwk.api.bl.bs.ApiBusinessService"
-			condition="sufficient" />
+		<interface name="info.novatec.architecture.check.testclasses.core.fwk.api.bl.bs.ApiBusinessService" condition="sufficient" />
+	</stereotype>
+	
+	<stereotype id="businessservice2">
+		<interface condition="sufficient">
+			<interfacename name="info.novatec.architecture.check.testclasses.core.fwk.api.bl.bs.ApiBusinessService2"/>
+		</interface>
 	</stereotype>
 
 	<stereotype id="entity">
@@ -39,4 +47,9 @@
 				name="info.novatec.architecture.check.testclasses.app1.main.data.entity.CustomerConcern" />
 		</baseclass>
 	</stereotype>
+
+	<stereotype id="entity2">
+		<baseclass name="info.novatec.architecture.check.testclasses.app1.main.data.entity.common.BaseEntity2" condition="sufficient"/>
+	</stereotype>
+	
 </sc:stereotypes>
