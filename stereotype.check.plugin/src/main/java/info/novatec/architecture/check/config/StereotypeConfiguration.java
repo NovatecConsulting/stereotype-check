@@ -153,7 +153,7 @@ public class StereotypeConfiguration {
 	}
 
 	/**
-	 * @param hasPostfix
+	 * @param hasInterface
 	 *            true if the class has the interface name
 	 * @return true if the class has the interface name and die condition is
 	 *         sufficient.
@@ -166,7 +166,7 @@ public class StereotypeConfiguration {
 	}
 
 	/**
-	 * @param hasPostfix
+	 * @param hasBaseClass
 	 *            true if the class has the base class
 	 * @return true if the class has the base class and die condition is
 	 *         sufficient.
@@ -179,7 +179,7 @@ public class StereotypeConfiguration {
 	}
 
 	/**
-	 * @param hasPostfix
+	 * @param isInPackage
 	 *            true if the class has the package
 	 * @return true if the class has the package and die condition is
 	 *         sufficient.
