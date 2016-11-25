@@ -5,6 +5,7 @@
 [![Build Status](https://travis-ci.org/NovaTecConsulting/stereotype-check.svg?branch=master)](https://travis-ci.org/NovaTecConsulting/stereotype-check)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![Coverage Status](https://coveralls.io/repos/github/NovaTecConsulting/stereotype-check/badge.svg?branch=master)](https://coveralls.io/github/NovaTecConsulting/stereotype-check?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/583807d6e7cea00029198ced/badge.svg?style=flat)](https://www.versioneye.com/user/projects/583807d6e7cea00029198ced)
 
 ## Installation of Eclipse Checkstyle Plugin
 
