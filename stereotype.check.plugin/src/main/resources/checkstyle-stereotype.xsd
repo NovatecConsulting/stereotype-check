@@ -55,7 +55,7 @@
 						default="false" />
 				</xsd:complexType>
 			</xsd:element>
-			<xsd:element name="baseclass" minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="baseclass" minOccurs="0" maxOccurs="1">
 				<xsd:complexType>
 					<xsd:sequence>
 						<xsd:element name="baseclassname" minOccurs="0"
@@ -72,7 +72,7 @@
 						default="false" />
 				</xsd:complexType>
 			</xsd:element>
-			<xsd:element name="interface" minOccurs="0" maxOccurs="unbounded">
+			<xsd:element name="interface" minOccurs="0" maxOccurs="1">
 				<xsd:complexType>
 					<xsd:sequence>
 						<xsd:element name="interfacename" minOccurs="0"
