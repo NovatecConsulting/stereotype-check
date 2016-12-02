@@ -64,7 +64,7 @@ public class StereotypeConfiguration {
 	/** The classes that a stereotype can extend from. */
 	private final Set<String> baseClassNames = new HashSet<>();
 
-	/** The condition for the baseclasses. */
+	/** The condition for the base classes. */
 	private StereotypeCondition baseClassNameCondition = null;
 
 	/**
@@ -75,6 +75,15 @@ public class StereotypeConfiguration {
 	 * in this Map then it is not overrideable.
 	 */
 	private final Map<StereotypeIdentifier, Map<ConfigurationName, Boolean>> allowOverride = new HashMap<StereotypeIdentifier, Map<ConfigurationName, Boolean>>();
+
+	/**
+	 * Map containing information about which mode is used to override specific
+	 * parts of the central configuration file by the project specific
+	 * configuration file. The key is name of the configuration (e.g. postfix).
+	 * The value is the {@link OverrideMode}. If no key in this Map then
+	 * {@link OverrideMode#replace} is used.
+	 */
+	private final Map<ConfigurationName, OverrideMode> overrideMode = new HashMap<ConfigurationName, OverrideMode>();
 
 	/**
 	 * @return the names of the annotations as concatenated string.
@@ -221,7 +230,7 @@ public class StereotypeConfiguration {
 	 * @param configId
 	 *            The {@link #id} of a stereotype.
 	 * @param cfgName
-	 *            The name of the configuration that can be overriden (e.g.
+	 *            The name of the configuration that can be overridden (e.g.
 	 *            postfix)
 	 * @return true if an override is allowed for the given stereotype at the
 	 *         given part of the configuration.
@@ -245,7 +254,7 @@ public class StereotypeConfiguration {
 	 * @param configId
 	 *            The {@link #id} of a stereotype to be override.
 	 * @param cfgName
-	 *            The name of the configuration that can be overriden (e.g.
+	 *            The name of the configuration that can be overridden (e.g.
 	 *            postfix)
 	 * @param allowOverride
 	 *            if override is allowed.
@@ -261,6 +270,48 @@ public class StereotypeConfiguration {
 			Map<ConfigurationName, Boolean> tempMap = new HashMap<ConfigurationName, Boolean>();
 			tempMap.put(cfgName, allowOverride);
 			this.allowOverride.put(configId, tempMap);
+		}
+	}
+
+	/**
+	 * Get the {@link OverrideMode}.
+
+	 * @param cfgName
+	 *            The name of the configuration that can be overridden (e.g.
+	 *            postfix)
+	 * @return The {@link OverrideMode} or {@link OverrideMode#replace} if no
+	 *         one configured.
+	 */
+	public OverrideMode getOverrideMode(ConfigurationName cfgName) {
+		if (cfgName == ConfigurationName.ANNOTATION || cfgName == ConfigurationName.ANNOTATIONNAME){
+			throw new IllegalArgumentException("OverrideMode of Annotations can not be configured.");
+		}
+		OverrideMode mode = this.overrideMode.get(cfgName);
+		if (mode != null) {
+			return mode;
+		} else {
+			return OverrideMode.replace;
+		}
+	}
+
+	/**
+	 * Set the {@link OverrideMode}.
+	 * 
+	 * @param cfgName
+	 *            The name of the configuration that can be overridden (e.g.
+	 *            postfix)
+	 * @param mode
+	 *            The {@link OverrideMode}.
+	 * @throws IllegalArgumentException
+	 *             if there is already a {@link OverrideMode} definition for the
+	 *             given configId.
+	 */
+	void setOverrideMode(ConfigurationName cfgName, OverrideMode mode) {
+		if (cfgName == ConfigurationName.ANNOTATION || cfgName == ConfigurationName.ANNOTATIONNAME){
+			throw new IllegalArgumentException("OverrideMode of Annotations can not be configured.");
+		}
+		if (getOverrideMode(cfgName) == OverrideMode.replace){
+			this.overrideMode.put(cfgName, mode);
 		}
 	}
 
@@ -390,7 +441,6 @@ public class StereotypeConfiguration {
 		this.baseClassNameCondition = baseClassNameCondition;
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return "StereotypeConfiguration [id=" + id + ", packageName=" + packageName + ", packageNameCondition="
