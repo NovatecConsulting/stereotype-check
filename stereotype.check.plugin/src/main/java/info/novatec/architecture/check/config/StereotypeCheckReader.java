@@ -137,7 +137,7 @@ public class StereotypeCheckReader {
 					addBaseClass();
 				} else if ("baseclassname".equals(localName)) {
 					addBaseClassName();
-				} else if ("excludedclasses".equals(localName)){
+				} else if ("excludedclasses".equals(localName)) {
 					addExcludedClasses();
 				}
 				break;
@@ -147,7 +147,7 @@ public class StereotypeCheckReader {
 					addStereotype();
 				} else if ("annotation".equals(localName2)) {
 					addAnnotation();
-				} else if ("interface".equals(localName2) || "baseclass".equals(localName2)){
+				} else if ("interface".equals(localName2) || "baseclass".equals(localName2)) {
 					cfgIsOverridable = false;
 				} else if ("stereotypes".equals(localName2)) {
 					mergeDependencies();
@@ -170,17 +170,25 @@ public class StereotypeCheckReader {
 		}
 
 		private void addBaseClassName() {
-			if (additionCfg == null || !cfgIsOverridable) {
+			if (additionCfg == null || !cfgIsOverridable
+					|| additionCfg.getOverrideMode(ConfigurationName.baseclass) == OverrideMode.extend) {
 				config.addBaseClassName(getAttributeValue(null, "name"));
 			}
 		}
 
 		private void addBaseClass() {
-			cfgIsOverridable = cfgIsOverridable(getAttributeValue(null, ALLOWOVERRIDE),
-					ConfigurationName.ANNOTATION, config);
+			cfgIsOverridable = cfgIsOverridable(getAttributeValue(null, ALLOWOVERRIDE), ConfigurationName.baseclass,
+					config);
+			if (additionCfg == null) {
+				OverrideMode overrideMode = OverrideMode.valueOfWithDefault(getAttributeValue(null, "overridemode"));
+				config.setOverrideMode(ConfigurationName.baseclass, overrideMode);
+			}
 			if (additionCfg != null && cfgIsOverridable) {
 				config.setBaseClassNameCondition(additionCfg.getBaseClassNameCondition());
 				config.getBaseClassNames().addAll(additionCfg.getBaseClassNames());
+				if (additionCfg.getOverrideMode(ConfigurationName.baseclass) == OverrideMode.extend) {
+					config.addBaseClassName(getAttributeValue(null, "name"));
+				}
 			} else {
 				config.addBaseClassName(getAttributeValue(null, "name"));
 				config.setBaseClassNameCondition(StereotypeCondition.valueOf(getAttributeValue(null, "condition")));
@@ -188,17 +196,25 @@ public class StereotypeCheckReader {
 		}
 
 		private void addInterfaceName() {
-			if (additionCfg == null || !cfgIsOverridable) {
+			if (additionCfg == null || !cfgIsOverridable
+					|| additionCfg.getOverrideMode(ConfigurationName.INTERFACE) == OverrideMode.extend) {
 				config.addInterfaceName(getAttributeValue(null, "name"));
 			}
 		}
 
 		private void addInterface() {
-			cfgIsOverridable = cfgIsOverridable(getAttributeValue(null, ALLOWOVERRIDE),
-					ConfigurationName.ANNOTATION, config);
+			cfgIsOverridable = cfgIsOverridable(getAttributeValue(null, ALLOWOVERRIDE), ConfigurationName.INTERFACE,
+					config);
+			if (additionCfg == null) {
+				OverrideMode overrideMode = OverrideMode.valueOfWithDefault(getAttributeValue(null, "overridemode"));
+				config.setOverrideMode(ConfigurationName.INTERFACE, overrideMode);
+			}
 			if (additionCfg != null && cfgIsOverridable) {
 				config.setInterfaceNameCondition(additionCfg.getInterfaceNameCondition());
 				config.getInterfaceNames().addAll(additionCfg.getInterfaceNames());
+				if (additionCfg.getOverrideMode(ConfigurationName.INTERFACE) == OverrideMode.extend) {
+					config.addInterfaceName(getAttributeValue(null, "name"));
+				}
 			} else {
 				config.addInterfaceName(getAttributeValue(null, "name"));
 				config.setInterfaceNameCondition(StereotypeCondition.valueOf(getAttributeValue(null, "condition")));
@@ -206,19 +222,26 @@ public class StereotypeCheckReader {
 		}
 
 		private void addAnnotationName() {
-			if (additionCfg == null || !cfgIsOverridable) {
+			if (additionCfg == null || !cfgIsOverridable || additionCfg.getOverrideMode(ConfigurationName.ANNOTATION) == OverrideMode.extend) {
 				annotationConfig.addAnnotationName(getAttributeValue(null, "name"));
 			}
 		}
 
 		private void createAnnotation() {
 			annotationConfig = new AnnotationConfiguration();
-			cfgIsOverridable = cfgIsOverridable(getAttributeValue(null, ALLOWOVERRIDE),
-					ConfigurationName.ANNOTATION, config);
+			cfgIsOverridable = cfgIsOverridable(getAttributeValue(null, ALLOWOVERRIDE), ConfigurationName.ANNOTATION,
+					config);
+			if (additionCfg == null) {
+				OverrideMode overrideMode = OverrideMode.valueOfWithDefault(getAttributeValue(null, "overridemode"));
+				config.setOverrideMode(ConfigurationName.ANNOTATION, overrideMode);
+			}
 			if (additionCfg != null && cfgIsOverridable) {
 				for (AnnotationConfiguration annotationCfg : additionCfg.getAnnotationConfigs()) {
 					annotationConfig.setAnnotationnameCondition(annotationCfg.getAnnotationNameCondition());
 					annotationConfig.getAnnotationNames().addAll(annotationCfg.getAnnotationNames());
+				}
+				if (additionCfg.getOverrideMode(ConfigurationName.ANNOTATION) == OverrideMode.extend) {
+					annotationConfig.addAnnotationName(getAttributeValue(null, "name"));
 				}
 			} else {
 				annotationConfig.addAnnotationName(getAttributeValue(null, "name"));
@@ -282,7 +305,7 @@ public class StereotypeCheckReader {
 		private void addApplicationPackage() {
 			applicationPackageNames.add(getAttributeValue(null, "name"));
 		}
-		
+
 		private void addExcludedClasses() {
 			String regexp = getAttributeValue(null, "regexp");
 			excludedClasses.add(Pattern.compile(regexp));
@@ -374,7 +397,8 @@ public class StereotypeCheckReader {
 			throws XMLStreamException, IllegalArgumentException, SAXException, IOException {
 		XMLStreamReader reader = XMLInputFactory.newInstance()
 				.createXMLStreamReader(new BufferedInputStream(new FileInputStream(file)));
-		StereotypeCheckConfigurationReader delegate = new StereotypeCheckConfigurationReader(reader, additionalCheckCfg);
+		StereotypeCheckConfigurationReader delegate = new StereotypeCheckConfigurationReader(reader,
+				additionalCheckCfg);
 
 		SchemaFactory schemafactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 		Schema schema = schemafactory

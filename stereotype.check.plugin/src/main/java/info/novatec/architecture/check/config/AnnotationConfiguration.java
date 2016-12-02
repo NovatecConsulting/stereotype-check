@@ -115,10 +115,10 @@ public class AnnotationConfiguration {
 		return true;
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return "AnnotationConfiguration [annotationNames=" + annotationNames + ", annotationNameCondition="
 				+ annotationNameCondition + "]";
 	}
+
 }

@@ -77,6 +77,15 @@ public class StereotypeConfiguration {
 	private final Map<StereotypeIdentifier, Map<ConfigurationName, Boolean>> allowOverride = new HashMap<StereotypeIdentifier, Map<ConfigurationName, Boolean>>();
 
 	/**
+	 * Map containing information about which mode is used to override sepcific
+	 * part of the central configuration file by the project specific
+	 * configuration file. The key is name of the configuration (e.g. postfix).
+	 * The value is the {@link OverrideMode}. If no key in this Map then
+	 * {@link OverrideMode#replace} is used.
+	 */
+	private final Map<ConfigurationName, OverrideMode> overrideMode = new HashMap<ConfigurationName, OverrideMode>();
+
+	/**
 	 * @return the names of the annotations as concatenated string.
 	 */
 	public String getAnnotationNamesAsString() {
@@ -265,6 +274,42 @@ public class StereotypeConfiguration {
 	}
 
 	/**
+	 * Get the {@link OverrideMode}.
+
+	 * @param cfgName
+	 *            The name of the configuration that can be overriden (e.g.
+	 *            postfix)
+	 * @return The {@link OverrideMode} or {@link OverrideMode#replace} if no
+	 *         one configured.
+	 */
+	public OverrideMode getOverrideMode(ConfigurationName cfgName) {
+		OverrideMode mode = this.overrideMode.get(cfgName);
+		if (mode != null) {
+			return mode;
+		} else {
+			return OverrideMode.replace;
+		}
+	}
+
+	/**
+	 * Set the {@link OverrideMode}.
+	 * 
+	 * @param cfgName
+	 *            The name of the configuration that can be overriden (e.g.
+	 *            postfix)
+	 * @param mode
+	 *            The {@link OverrideMode}.
+	 * @throws IllegalArgumentException
+	 *             if there is already a {@link OverrideMode} definition for the
+	 *             given configId.
+	 */
+	void setOverrideMode(ConfigurationName cfgName, OverrideMode mode) {
+		if (getOverrideMode(cfgName) == OverrideMode.replace){
+			this.overrideMode.put(cfgName, mode);
+		}
+	}
+
+	/**
 	 * @return the id
 	 */
 	public StereotypeIdentifier getId() {
@@ -390,7 +435,6 @@ public class StereotypeConfiguration {
 		this.baseClassNameCondition = baseClassNameCondition;
 	}
 
-	/** {@inheritDoc} */
 	@Override
 	public String toString() {
 		return "StereotypeConfiguration [id=" + id + ", packageName=" + packageName + ", packageNameCondition="

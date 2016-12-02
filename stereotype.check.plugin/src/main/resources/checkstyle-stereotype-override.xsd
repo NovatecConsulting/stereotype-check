@@ -15,7 +15,8 @@
 	<xsd:complexType name="DependencyType">
 		<xsd:attribute name="from" type="xsd:string" use="required" />
 		<xsd:attribute name="to" type="xsd:string" use="required" />
-		<xsd:attribute name="allowed" type="xsd:boolean" default="true"/>
+		<xsd:attribute name="allowed" type="xsd:boolean"
+			default="true" />
 	</xsd:complexType>
 
 	<xsd:complexType name="StereotypeType">
@@ -40,6 +41,8 @@
 					<xsd:attribute name="name" type="xsd:string" use="optional" />
 					<xsd:attribute name="condition" type="sc:ConditionType"
 						use="required" />
+					<xsd:attribute name="overridemode" type="sc:OverrideMode"
+						default="replace" />
 				</xsd:complexType>
 			</xsd:element>
 			<xsd:element name="baseclass" minOccurs="0" maxOccurs="unbounded">
@@ -55,6 +58,8 @@
 					<xsd:attribute name="name" type="xsd:string" use="optional" />
 					<xsd:attribute name="condition" type="sc:ConditionType"
 						use="required" />
+					<xsd:attribute name="overridemode" type="sc:OverrideMode"
+						default="replace" />
 				</xsd:complexType>
 			</xsd:element>
 			<xsd:element name="interface" minOccurs="0" maxOccurs="unbounded">
@@ -70,6 +75,8 @@
 					<xsd:attribute name="name" type="xsd:string" use="optional" />
 					<xsd:attribute name="condition" type="sc:ConditionType"
 						use="required" />
+					<xsd:attribute name="overridemode" type="sc:OverrideMode"
+						default="replace" />
 				</xsd:complexType>
 			</xsd:element>
 			<xsd:element name="package" minOccurs="0" maxOccurs="unbounded">
@@ -87,6 +94,13 @@
 		<xsd:restriction base="xsd:string">
 			<xsd:enumeration value="sufficient" />
 			<xsd:enumeration value="necessary" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+	<xsd:simpleType name="OverrideMode">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="replace" />
+			<xsd:enumeration value="extend" />
 		</xsd:restriction>
 	</xsd:simpleType>
 </xsd:schema>
