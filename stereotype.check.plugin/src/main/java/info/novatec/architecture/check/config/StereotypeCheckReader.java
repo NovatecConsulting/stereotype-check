@@ -359,9 +359,9 @@ public class StereotypeCheckReader {
 		 */
 		private Boolean cfgIsOverridable(String attrValue, ConfigurationName cfgName, StereotypeConfiguration config)
 				throws IllegalArgumentException {
-			Boolean cfgOverridable = config.getAllowOverride(config.getId(), cfgName);
+			Boolean cfgOverridable = config.getAllowOverride(cfgName);
 			if (!cfgOverridable && attrValue != null) {
-				config.setAllowOverride(config.getId(), cfgName, Boolean.valueOf(attrValue));
+				config.setAllowOverride(cfgName, Boolean.valueOf(attrValue));
 				return true;
 			}
 			return cfgOverridable;

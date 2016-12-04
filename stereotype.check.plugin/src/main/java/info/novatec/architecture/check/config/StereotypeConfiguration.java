@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -69,17 +70,16 @@ public class StereotypeConfiguration {
 
 	/**
 	 * Map containing information about which part of the central configuration
-	 * file can be override by a project specific configuration file. Key is the
-	 * {@link #id} of the stereotype. The value is a Map with with key name of
+	 * file can be override by a project specific configuration file. The key is the name of
 	 * the configuration (e.g. postfix). The value is if overrideable. If no key
 	 * in this Map then it is not overrideable.
 	 */
-	private final Map<StereotypeIdentifier, Map<ConfigurationName, Boolean>> allowOverride = new HashMap<StereotypeIdentifier, Map<ConfigurationName, Boolean>>();
+	private final Map<ConfigurationName, Boolean> allowOverride = new HashMap<ConfigurationName, Boolean>();
 
 	/**
 	 * Map containing information about which mode is used to override specific
 	 * parts of the central configuration file by the project specific
-	 * configuration file. The key is name of the configuration (e.g. postfix).
+	 * configuration file. The key is the name of the configuration (e.g. postfix).
 	 * The value is the {@link OverrideMode}. If no key in this Map then
 	 * {@link OverrideMode#replace} is used.
 	 */
@@ -226,33 +226,21 @@ public class StereotypeConfiguration {
 
 	/**
 	 * Check if override is allowed
-	 * 
-	 * @param configId
-	 *            The {@link #id} of a stereotype.
+
 	 * @param cfgName
 	 *            The name of the configuration that can be overridden (e.g.
 	 *            postfix)
 	 * @return true if an override is allowed for the given stereotype at the
 	 *         given part of the configuration.
 	 */
-	public Boolean getAllowOverride(StereotypeIdentifier configId, ConfigurationName cfgName) {
-		Map<ConfigurationName, Boolean> map = this.allowOverride.get(configId);
-		if (map != null) {
-			if (map.get(cfgName) != null) {
-				return map.get(cfgName);
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
+	public Boolean getAllowOverride(ConfigurationName cfgName) {
+		Boolean override = this.allowOverride.get(cfgName);
+		return BooleanUtils.isTrue(override);
 	}
 
 	/**
 	 * Set that override is allowed.
 	 * 
-	 * @param configId
-	 *            The {@link #id} of a stereotype to be override.
 	 * @param cfgName
 	 *            The name of the configuration that can be overridden (e.g.
 	 *            postfix)
@@ -262,14 +250,10 @@ public class StereotypeConfiguration {
 	 *             if there is already a override definition for the given
 	 *             configId.
 	 */
-	void setAllowOverride(StereotypeIdentifier configId, ConfigurationName cfgName, Boolean allowOverride)
+	void setAllowOverride(ConfigurationName cfgName, Boolean allowOverride)
 			throws IllegalArgumentException {
-		if (this.allowOverride.containsKey(configId)) {
-			throw new IllegalArgumentException(cfgName + " already found for " + configId + " error!");
-		} else if (!this.allowOverride.containsKey(configId)) {
-			Map<ConfigurationName, Boolean> tempMap = new HashMap<ConfigurationName, Boolean>();
-			tempMap.put(cfgName, allowOverride);
-			this.allowOverride.put(configId, tempMap);
+		if (getAllowOverride(cfgName) == false){
+			this.allowOverride.put(cfgName, allowOverride);
 		}
 	}
 
