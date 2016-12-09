@@ -21,6 +21,10 @@
 
    <description>
       Stereotype Checker
+
+If you don&apos;t check your architecture it doesn&apos;t exist in reality: Checkstyle plugin extension to verify imports and usage between classes.
+
+https://github.com/NovaTecConsulting/stereotype-check
    </description>
 
    <copyright>
