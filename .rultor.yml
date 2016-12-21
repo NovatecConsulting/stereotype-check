@@ -1,3 +1,5 @@
+docker: 
+  image: "yegor256/java8"
 decrypt:
   settings.xml: "repo/scrt/settings.xml.asc"
   pubring.gpg: "repo/scrt/pubring.gpg.asc"
