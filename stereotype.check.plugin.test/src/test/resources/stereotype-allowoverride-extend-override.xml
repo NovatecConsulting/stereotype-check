@@ -22,29 +22,29 @@
 
 	<stereotype id="businessservice">
 		<interface
-			name="info.novatec.architecture.check.testclasses.core.fwk.api.bl.bs.ApiBusinessService"
+			name="info.novatec.ita.check.testclasses.core.fwk.api.bl.bs.ApiBusinessService"
 			condition="sufficient" overridemode="extend" />
 	</stereotype>
 
 	<stereotype id="businessservice2">
 		<interface condition="sufficient" overridemode="extend">
 			<interfacename
-				name="info.novatec.architecture.check.testclasses.core.fwk.api.bl.bs.ApiBusinessService2" />
+				name="info.novatec.ita.check.testclasses.core.fwk.api.bl.bs.ApiBusinessService2" />
 		</interface>
 	</stereotype>
 
 	<stereotype id="entity">
 		<baseclass condition="sufficient" overridemode="extend">
 			<baseclassname
-				name="info.novatec.architecture.check.testclasses.app1.main.data.entity.common.BaseEntity" />
+				name="info.novatec.ita.check.testclasses.app1.main.data.entity.common.BaseEntity" />
 			<baseclassname
-				name="info.novatec.architecture.check.testclasses.app1.main.data.entity.CustomerConcern" />
+				name="info.novatec.ita.check.testclasses.app1.main.data.entity.CustomerConcern" />
 		</baseclass>
 	</stereotype>
 
 	<stereotype id="entity2">
 		<baseclass
-			name="info.novatec.architecture.check.testclasses.app1.main.data.entity.common.BaseEntity2"
+			name="info.novatec.ita.check.testclasses.app1.main.data.entity.common.BaseEntity2"
 			condition="sufficient" overridemode="extend" />
 	</stereotype>
 

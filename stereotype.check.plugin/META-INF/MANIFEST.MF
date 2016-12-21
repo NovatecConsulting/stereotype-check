@@ -5,7 +5,7 @@ Bundle-SymbolicName: stereotype.check.plugin;singleton:=true
 Bundle-Version: 2.0.0
 Bundle-ClassPath: .
 Bundle-Vendor: http://novatec-gmbh.de
-Export-Package: info.novatec.architecture.check
+Export-Package: info.novatec.ita.check
 Require-Bundle: net.sf.eclipsecs.checkstyle;bundle-version="6.5.0",
  net.sf.eclipsecs.core;bundle-version="6.5.0",
  net.sf.eclipsecs.ui;bundle-version="6.5.0"

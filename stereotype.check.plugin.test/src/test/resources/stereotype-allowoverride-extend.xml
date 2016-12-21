@@ -18,13 +18,13 @@
 <sc:stereotypes xmlns:sc="http://www.novatec-gmbh.de/checkstyle-stereotype"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.novatec-gmbh.de/checkstyle-stereotype checkstyle-stereotype.xsd ">
-	<applicationpackage name="info.novatec.architecture.check.testclasses" />
+	<applicationpackage name="info.novatec.ita.check.testclasses" />
 
 	<stereotype id="businessservice">
 		<postfix name="Bs" condition="sufficient" />
 		<annotation name="javax.ejb.Remote" condition="necessary" />
 		<interface
-			name="info.novatec.architecture.check.testclasses.core.fwk.api.bl.bs.BusinessService"
+			name="info.novatec.ita.check.testclasses.core.fwk.api.bl.bs.BusinessService"
 			condition="sufficient" allowoverride="true" />
 		<package
 			name="^([a-z]+[a-z0-9\.]*)\.shared(\.[a-z][a-z0-9]*)*\.bl\.bs(\.[a-z][a-z0-9]*)*$"
@@ -36,7 +36,7 @@
 		<annotation name="javax.ejb.Remote" condition="necessary" />
 		<interface condition="sufficient" allowoverride="true">
 			<interfacename
-				name="info.novatec.architecture.check.testclasses.core.fwk.api.bl.bs.BusinessService2" />
+				name="info.novatec.ita.check.testclasses.core.fwk.api.bl.bs.BusinessService2" />
 		</interface>
 		<package
 			name="^([a-z]+[a-z0-9\.]*)\.shared(\.[a-z][a-z0-9]*)*\.bl\.bs2(\.[a-z][a-z0-9]*)*$"
@@ -47,7 +47,7 @@
 		<postfix name="Bs3" condition="sufficient" />
 		<annotation name="javax.ejb.Remote" condition="necessary" />
 		<interface
-			name="info.novatec.architecture.check.testclasses.core.fwk.api.bl.bs.BusinessService3"
+			name="info.novatec.ita.check.testclasses.core.fwk.api.bl.bs.BusinessService3"
 			condition="sufficient" allowoverride="true" />
 		<package
 			name="^([a-z]+[a-z0-9\.]*)\.shared(\.[a-z][a-z0-9]*)*\.bl\.bs3(\.[a-z][a-z0-9]*)*$"
@@ -58,7 +58,7 @@
 		<annotation name="javax.persistence.Entity" condition="sufficient" />
 		<baseclass condition="necessary" allowoverride="true">
 			<baseclassname
-				name="info.novatec.architecture.check.testclasses.core.fwk.api.data.dto.Pojo" />
+				name="info.novatec.ita.check.testclasses.core.fwk.api.data.dto.Pojo" />
 		</baseclass>
 		<package
 			name="^([a-z]+[a-z0-9\.]*)\.main\.data\.entity(\.[a-z][a-z0-9]*)*$"
@@ -68,7 +68,7 @@
 	<stereotype id="entity2">
 		<annotation name="javax.persistence.Entity2" condition="sufficient" />
 		<baseclass
-			name="info.novatec.architecture.check.testclasses.core.fwk.api.data.dto.Pojo2"
+			name="info.novatec.ita.check.testclasses.core.fwk.api.data.dto.Pojo2"
 			condition="necessary" allowoverride="true" />
 		<package
 			name="^([a-z]+[a-z0-9\.]*)\.main\.data\.entity(\.[a-z][a-z0-9]*)*$"
@@ -78,7 +78,7 @@
 	<stereotype id="entityNotOverridden">
 		<annotation name="javax.persistence.Entity3" condition="sufficient" />
 		<baseclass
-			name="info.novatec.architecture.check.testclasses.core.fwk.api.data.dto.Pojo3"
+			name="info.novatec.ita.check.testclasses.core.fwk.api.data.dto.Pojo3"
 			condition="necessary" allowoverride="true" />
 		<package
 			name="^([a-z]+[a-z0-9\.]*)\.main\.data\.entity(\.[a-z][a-z0-9]*)*$"

@@ -18,17 +18,17 @@
 <sc:stereotypes xmlns:sc="http://www.novatec-gmbh.de/checkstyle-stereotype"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.novatec-gmbh.de/checkstyle-stereotype checkstyle-stereotype.xsd ">
-	<applicationpackage name="info.novatec.architecture.check.testclasses"/>
+	<applicationpackage name="info.novatec.ita.check.testclasses"/>
 
 	<stereotype id="producer">
 		<postfix name="Producer" condition="sufficient"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.cdi.Producer" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.cdi.Producer" condition="sufficient"/>
 		<package name=".*" condition="necessary"/>
 	</stereotype>
 	
 	<stereotype id="producer">
 		<postfix name="Producer" condition="sufficient"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.cdi.Producer" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.cdi.Producer" condition="sufficient"/>
 		<package name=".*" condition="necessary"/>
 	</stereotype>
 
