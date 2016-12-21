@@ -18,14 +18,14 @@
 <sc:stereotypes xmlns:sc="http://www.novatec-gmbh.de/checkstyle-stereotype"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.novatec-gmbh.de/checkstyle-stereotype checkstyle-stereotype.xsd ">
-	<applicationpackage name="info.novatec.architecture.check.testclasses"/>
+	<applicationpackage name="info.novatec.ita.check.testclasses"/>
 	<dependency from="integrationservice" to="transformer"/>
 	<dependency from="integrationservice" to="transformer2"/>
 
 	<stereotype id="integrationservice">
 		<postfix name="Is" condition="sufficient"/>
-		<annotation name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.is.IntegrationServiceStereotype" condition="sufficient"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.is.IntegrationService" condition="sufficient"/>
+		<annotation name="info.novatec.ita.check.testclasses.core.fwk.common.bl.is.IntegrationServiceStereotype" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.bl.is.IntegrationService" condition="sufficient"/>
 		<package name="*.main.bl.is" condition="necessary"/>
 	</stereotype>
 	

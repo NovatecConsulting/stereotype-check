@@ -20,7 +20,7 @@
 	xsi:schemaLocation="http://www.novatec-gmbh.de/checkstyle-stereotype checkstyle-stereotype.xsd ">
 	<applicationpackage name="stereotypecheck"/>
 	<applicationpackage name="dependencycheck"/>
-    <applicationpackage name="info.novatec.architecture.check.testclasses"/>
+    <applicationpackage name="info.novatec.ita.check.testclasses"/>
 
 	<dependency from="transformer" to="transformer"/>
 	<dependency from="transformer" to="dto"/>
@@ -34,10 +34,10 @@
 	<stereotype id="view">
 		<postfix name="View" condition="sufficient"/>
 		<annotation condition="sufficient">
-		 	<annotationname	name="info.novatec.architecture.check.testclasses.app1.main.ul.App1TypedViewStereotype"/>
-		 	<annotationname	name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.ViewStereotype"/> 
+		 	<annotationname	name="info.novatec.ita.check.testclasses.app1.main.ul.App1TypedViewStereotype"/>
+		 	<annotationname	name="info.novatec.ita.check.testclasses.core.fwk.common.ul.ViewStereotype"/> 
 		</annotation>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.View" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.ul.View" condition="sufficient"/>
 		<package name="*.main.ul.wt.*" condition="necessary"/>
 	</stereotype>
 	
@@ -49,7 +49,7 @@
 
 	<stereotype id="dto">
 		<postfix name="Dto" condition="sufficient"/>
-		<baseclass name="info.novatec.architecture.check.testclasses.core.fwk.api.data.dto.Pojo" condition="necessary"/>
+		<baseclass name="info.novatec.ita.check.testclasses.core.fwk.api.data.dto.Pojo" condition="necessary"/>
 		<package name="*.data.dto*" condition="necessary"/>
 	</stereotype>
 

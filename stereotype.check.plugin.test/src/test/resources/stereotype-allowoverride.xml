@@ -18,37 +18,37 @@
 <sc:stereotypes xmlns:sc="http://www.novatec-gmbh.de/checkstyle-stereotype"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.novatec-gmbh.de/checkstyle-stereotype checkstyle-stereotype.xsd ">
-	<applicationpackage name="info.novatec.architecture.check.testclasses"/>
+	<applicationpackage name="info.novatec.ita.check.testclasses"/>
 	
 	<dependency to="view" from="view"/>
 	
 	<stereotype id="view">
 		<postfix name="View" condition="sufficient"/>
 		<annotation condition="sufficient" allowoverride="true">
-		 	<annotationname	name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.ViewStereotype"/> 
+		 	<annotationname	name="info.novatec.ita.check.testclasses.core.fwk.common.ul.ViewStereotype"/> 
 		</annotation>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.View" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.ul.View" condition="sufficient"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.ul\.wt(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 	
 	<stereotype id="view2">
 		<postfix name="View2" condition="sufficient"/>
-		<annotation name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.ViewStereotype2" condition="sufficient" allowoverride="true"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.View2" condition="sufficient"/>
+		<annotation name="info.novatec.ita.check.testclasses.core.fwk.common.ul.ViewStereotype2" condition="sufficient" allowoverride="true"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.ul.View2" condition="sufficient"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.ul\.wt(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 	
 	<stereotype id="viewNotOverridden">
 		<postfix name="View3" condition="sufficient"/>
-		<annotation name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.ViewStereotype3" condition="sufficient" allowoverride="true"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.View3" condition="sufficient"/>
+		<annotation name="info.novatec.ita.check.testclasses.core.fwk.common.ul.ViewStereotype3" condition="sufficient" allowoverride="true"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.ul.View3" condition="sufficient"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.ul\.wt(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 
 	<stereotype id="businessservice">
 		<postfix name="Bs" condition="sufficient"/>
 		<annotation name="javax.ejb.Remote" condition="necessary"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.api.bl.bs.BusinessService" condition="sufficient" allowoverride="true"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.api.bl.bs.BusinessService" condition="sufficient" allowoverride="true"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.shared(\.[a-z][a-z0-9]*)*\.bl\.bs(\.[a-z][a-z0-9]*)*$" condition="sufficient"/>
 	</stereotype>
 	
@@ -56,7 +56,7 @@
 		<postfix name="Bs2" condition="sufficient"/>
 		<annotation name="javax.ejb.Remote" condition="necessary"/>
 		<interface condition="sufficient" allowoverride="true">
-			<interfacename name="info.novatec.architecture.check.testclasses.core.fwk.api.bl.bs.BusinessService2"/>
+			<interfacename name="info.novatec.ita.check.testclasses.core.fwk.api.bl.bs.BusinessService2"/>
 		</interface>
 		<package name="^([a-z]+[a-z0-9\.]*)\.shared(\.[a-z][a-z0-9]*)*\.bl\.bs2(\.[a-z][a-z0-9]*)*$" condition="sufficient"/>
 	</stereotype>
@@ -64,27 +64,27 @@
 	<stereotype id="businessserviceNotOverridden">
 		<postfix name="Bs3" condition="sufficient"/>
 		<annotation name="javax.ejb.Remote" condition="necessary"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.api.bl.bs.BusinessService3" condition="sufficient" allowoverride="true"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.api.bl.bs.BusinessService3" condition="sufficient" allowoverride="true"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.shared(\.[a-z][a-z0-9]*)*\.bl\.bs3(\.[a-z][a-z0-9]*)*$" condition="sufficient"/>
 	</stereotype>
 	
 	<stereotype id="entity">
 		<annotation name="javax.persistence.Entity" condition="sufficient"/> 
 		<baseclass condition="necessary" allowoverride="true">
-			<baseclassname name="info.novatec.architecture.check.testclasses.core.fwk.api.data.dto.Pojo"/>
+			<baseclassname name="info.novatec.ita.check.testclasses.core.fwk.api.data.dto.Pojo"/>
 		</baseclass>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main\.data\.entity(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 	
 	<stereotype id="entity2">
 		<annotation name="javax.persistence.Entity2" condition="sufficient"/> 
-		<baseclass name="info.novatec.architecture.check.testclasses.core.fwk.api.data.dto.Pojo2" condition="necessary" allowoverride="true"/>
+		<baseclass name="info.novatec.ita.check.testclasses.core.fwk.api.data.dto.Pojo2" condition="necessary" allowoverride="true"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main\.data\.entity(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 	
 	<stereotype id="entityNotOverridden">
 		<annotation name="javax.persistence.Entity3" condition="sufficient"/> 
-		<baseclass name="info.novatec.architecture.check.testclasses.core.fwk.api.data.dto.Pojo3" condition="necessary" allowoverride="true"/>
+		<baseclass name="info.novatec.ita.check.testclasses.core.fwk.api.data.dto.Pojo3" condition="necessary" allowoverride="true"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main\.data\.entity(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 </sc:stereotypes>

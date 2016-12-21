@@ -17,17 +17,17 @@
 <sc:stereotypes xmlns:sc="http://www.novatec-gmbh.de/checkstyle-stereotype"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.novatec-gmbh.de/checkstyle-stereotype checkstyle-stereotype.xsd ">
-	<applicationpackage name="info.novatec.architecture.check.testclasses"/>
+	<applicationpackage name="info.novatec.ita.check.testclasses"/>
 	
 	<dependency from="view" to="view"/>
 
 	<stereotype id="view">
 		<postfix name="View" condition="sufficient"/>
 		<annotation condition="sufficient">
-		 	<annotationname name="info.novatec.architecture.check.testclasses.app1.main.ul.App1TypedViewStereotype"/>
-		 	<annotationname name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.ViewStereotype"/> 
+		 	<annotationname name="info.novatec.ita.check.testclasses.app1.main.ul.App1TypedViewStereotype"/>
+		 	<annotationname name="info.novatec.ita.check.testclasses.core.fwk.common.ul.ViewStereotype"/> 
 		</annotation>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.View" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.ul.View" condition="sufficient"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.ul\.wt(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 

@@ -18,7 +18,7 @@
 <sc:stereotypes xmlns:sc="http://www.novatec-gmbh.de/checkstyle-stereotype"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.novatec-gmbh.de/checkstyle-stereotype checkstyle-stereotype.xsd ">
-	<applicationpackage name="info.novatec.architecture.check.testclasses"/>
+	<applicationpackage name="info.novatec.ita.check.testclasses"/>
 	
 	<excludedclasses regexp=".*Test"/>
 	
@@ -129,24 +129,24 @@
 
 	<stereotype id="producer">
 		<postfix name="Producer" condition="sufficient"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.cdi.Producer" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.cdi.Producer" condition="sufficient"/>
 		<package name=".*" condition="necessary"/>
 	</stereotype>
 
 	<stereotype id="view">
 		<postfix name="View" condition="sufficient"/>
 		<annotation condition="sufficient">
-		 	<annotationname name="info.novatec.architecture.check.testclasses.app1.main.ul.App1TypedViewStereotype"/>
-		 	<annotationname name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.ViewStereotype"/> 
+		 	<annotationname name="info.novatec.ita.check.testclasses.app1.main.ul.App1TypedViewStereotype"/>
+		 	<annotationname name="info.novatec.ita.check.testclasses.core.fwk.common.ul.ViewStereotype"/> 
 		</annotation>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.View" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.ul.View" condition="sufficient"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.ul\.wt(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 
 	<stereotype id="controller">
 		<postfix name="Ctl" condition="sufficient"/>
-		<annotation name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.ControllerStereotype" condition="sufficient"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.ul.Controller" condition="sufficient"/>
+		<annotation name="info.novatec.ita.check.testclasses.core.fwk.common.ul.ControllerStereotype" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.ul.Controller" condition="sufficient"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.ul\.wt(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 	
@@ -155,13 +155,13 @@
 		<annotation name="javax.ejb.Startup" condition="necessary"/>
 		<annotation name="javax.ejb.Singleton" condition="necessary"/>
 		<annotation name="javax.ejb.LocalBean" condition="necessary"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.init.InitFunction" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.init.InitFunction" condition="sufficient"/>
 	</stereotype>
 
 	<stereotype id="businessservice">
 		<postfix name="Bs" condition="sufficient"/>
 		<annotation name="javax.ejb.Remote" condition="necessary"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.api.bl.bs.BusinessService" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.api.bl.bs.BusinessService" condition="sufficient"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.shared(\.[a-z][a-z0-9]*)*\.bl\.bs(\.[a-z][a-z0-9]*)*$" condition="sufficient"/>
 	</stereotype>
 
@@ -176,31 +176,31 @@
 		<postfix name="Bo" condition="sufficient"/>
 		<annotation name="javax.ejb.LocalBean" condition="necessary"/>
 		<annotation name="javax.ejb.Stateless" condition="necessary"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.bo.BusinessOperation" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.bl.bo.BusinessOperation" condition="sufficient"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.bl\.bo(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 		
 	<stereotype id="businessfunction">
 		<postfix name="Bf" condition="sufficient"/>
 		<annotation condition="necessary">
-			<annotationname name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.bf.BusinessFunctionStereotype"/>
+			<annotationname name="info.novatec.ita.check.testclasses.core.fwk.common.bl.bf.BusinessFunctionStereotype"/>
 			<annotationname name="javax.ejb.LocalBean"/>
 		</annotation>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.bf.BusinessFunction" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.bl.bf.BusinessFunction" condition="sufficient"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.bl\.bf(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 	
 	<stereotype id="businessadapter">
 		<postfix name="Ba" condition="sufficient"/>
-		<annotation name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.ba.BusinessAdapterStereotype" condition="necessary"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.ba.BusinessAdapter" condition="sufficient"/>
+		<annotation name="info.novatec.ita.check.testclasses.core.fwk.common.bl.ba.BusinessAdapterStereotype" condition="necessary"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.bl.ba.BusinessAdapter" condition="sufficient"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.bl\.ba(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 			
 	<stereotype id="integrationservice">
 		<postfix name="Is" condition="sufficient"/>
-		<annotation name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.is.IntegrationServiceStereotype" condition="sufficient"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.bl.is.IntegrationService" condition="sufficient"/>
+		<annotation name="info.novatec.ita.check.testclasses.core.fwk.common.bl.is.IntegrationServiceStereotype" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.bl.is.IntegrationService" condition="sufficient"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.bl\.is(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 	
@@ -208,16 +208,16 @@
 		<postfix name="Ps" condition="sufficient"/>
 		<annotation name="javax.ejb.LocalBean" condition="necessary"/>
 		<annotation name="javax.ejb.Stateless" condition="necessary"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.pl.ps.PersistenceService" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.pl.ps.PersistenceService" condition="sufficient"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main(\.[a-z][a-z0-9]*)*\.pl\.ps(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 
 	<stereotype id="entity">
 		<annotation name="javax.persistence.Entity" condition="sufficient"/> 
 		<baseclass condition="necessary">
-			<baseclassname name="info.novatec.architecture.check.testclasses.core.fwk.api.data.dto.Pojo"/>
-			<baseclassname name="info.novatec.architecture.check.testclasses.app1.main.data.entity.common.BaseEntity"/>
-			<baseclassname name="info.novatec.architecture.check.testclasses.app1.main.data.entity.CustomerConcern"/>
+			<baseclassname name="info.novatec.ita.check.testclasses.core.fwk.api.data.dto.Pojo"/>
+			<baseclassname name="info.novatec.ita.check.testclasses.app1.main.data.entity.common.BaseEntity"/>
+			<baseclassname name="info.novatec.ita.check.testclasses.app1.main.data.entity.CustomerConcern"/>
 		</baseclass>
 		<package name="^([a-z]+[a-z0-9\.]*)\.main\.data\.entity(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
@@ -243,19 +243,19 @@
 	<stereotype id="technicalservice">
 		<postfix name="Ts" condition="sufficient"/>
 		<annotation name="javax.ejb.Remote" condition="necessary"/>
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.api.ts.TechnicalService" condition="sufficient"/>
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.api.ts.TechnicalService" condition="sufficient"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.fwk\.shared\.ts(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 	
 	<stereotype id="dto">
 		<postfix name="Dto" condition="sufficient"/>
-		<baseclass name="info.novatec.architecture.check.testclasses.core.fwk.api.data.dto.Pojo" condition="necessary"/>
+		<baseclass name="info.novatec.ita.check.testclasses.core.fwk.api.data.dto.Pojo" condition="necessary"/>
 		<package name="^([a-z]+[a-z0-9\.]*)\.data\.dto(\.[a-z][a-z0-9]*)*$" condition="necessary"/>
 	</stereotype>
 	
 	<stereotype id="util">
 		<postfix name="Util" condition="sufficient" />
-		<interface name="info.novatec.architecture.check.testclasses.core.fwk.common.util.Util" condition="necessary" />
+		<interface name="info.novatec.ita.check.testclasses.core.fwk.common.util.Util" condition="necessary" />
 		<package name=".*" condition="necessary" />
  	</stereotype>
 </sc:stereotypes>

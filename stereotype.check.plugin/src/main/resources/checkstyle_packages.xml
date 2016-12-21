@@ -25,6 +25,6 @@
       Define the Java packages where your custom Checkstyle module classes (checks, filters) reside here.
       See http://checkstyle.sourceforge.net/config.html#Packages for more info.
       -->
-    <package name="info.novatec.architecture.check">
+    <package name="info.novatec.ita.check">
     </package>
 </checkstyle-packages>
