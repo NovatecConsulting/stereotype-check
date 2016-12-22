@@ -6,6 +6,6 @@ decrypt:
   secring.gpg: "repo/scrt/secring.gpg.asc"
 release:
   script: |
-    mvn versions:set "-DnewVersion=${tag}"
+    mvn org.eclipse.tycho:tycho-versions-plugin:set-version "-DnewVersion=${tag}"
     git commit -am "${tag}"
     mvn clean deploy --settings /home/r/settings.xml
