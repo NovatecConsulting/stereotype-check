@@ -7,7 +7,13 @@
 [![Coverage Status](https://coveralls.io/repos/github/NovaTecConsulting/stereotype-check/badge.svg?branch=master)](https://coveralls.io/github/NovaTecConsulting/stereotype-check?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/583807d6e7cea00029198ced/badge.svg?style=flat)](https://www.versioneye.com/user/projects/583807d6e7cea00029198ced)
 
-## Installation of Eclipse Checkstyle Plugin
+##[Wiki](https://github.com/NovaTecConsulting/stereotype-check/wiki)
+### [Installation Guide](https://github.com/NovaTecConsulting/stereotype-check/wiki/Installation-Guide)
+### [Configuration Guide](https://github.com/NovaTecConsulting/stereotype-check/wiki/Configuration-Guide)
+
+## Build your own version of the Plugin
+
+### Installation of Eclipse Checkstyle Plugin
 
 In order to get the stereotype checker plugin running in eclipse, an appropriate checkstyle plugin version has to be installed. 
 
@@ -16,10 +22,10 @@ In order to get the stereotype checker plugin running in eclipse, an appropriate
     - Name: Local Eclipse Checkstyle Update Site
     - Click "Archive" and choose the downloaded zip file
 	
-## Build the Stereotype Check Plugin
+### Build the Stereotype Check Plugin
 * Build the plugin and create an update site using Maven: `mvn clean install`
 
-## Install the Stereotype Check Plugin
+### Install the Stereotype Check Plugin
 
 To be able to check the project with checkstyle, the stereotype checker must be installed to the current eclipse installation. Follow these steps to achieve this:
 * Install the plugin from there via "Help -> Install new Software"
@@ -27,7 +33,7 @@ To be able to check the project with checkstyle, the stereotype checker must be 
 	- Select the directory relative to the project root `./stereotype.check.repository/target/repository`
 	- Select the created plugin and install it.
 
-## Configure the Stereotype check Plugin
+### Configure the Stereotype check Plugin
 
 Activate checkstyle for your project e.g. the "stereotype check.plugin.test" which contains many classes with problems.
 * Open the properties of your project and select Checkstyle
@@ -55,7 +61,7 @@ import.
 
 
 
-## Debug the Eclipse Plugin
+### Debug the Eclipse Plugin
 
 Sometimes it is helpfull to be able to debug the eclipse plugin. Some prerequisites have to be fulfilled to do this:
 
