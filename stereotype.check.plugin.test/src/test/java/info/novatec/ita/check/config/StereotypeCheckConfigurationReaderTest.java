@@ -26,16 +26,9 @@ import org.junit.Test;
 
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.TreeWalker;
-import com.puppycrawl.tools.checkstyle.api.CheckstyleException;
 
 import info.novatec.ita.check.AbstractStereotypeCheckTest;
 import info.novatec.ita.check.StereotypeCheck;
-import info.novatec.ita.check.config.AnnotationConfiguration;
-import info.novatec.ita.check.config.StereotypeCheckConfiguration;
-import info.novatec.ita.check.config.StereotypeCheckReader;
-import info.novatec.ita.check.config.StereotypeCondition;
-import info.novatec.ita.check.config.StereotypeConfiguration;
-import info.novatec.ita.check.config.StereotypeIdentifier;
 import info.novatec.ita.check.testclasses.app1.main.bl.is.SampleIs;
 import info.novatec.ita.check.testclasses.app1.main.data.entity.AdditionalOperation;
 import info.novatec.ita.check.testclasses.app1.main.ul.wt.test.SampleApp1View;
@@ -63,9 +56,8 @@ public class StereotypeCheckConfigurationReaderTest extends AbstractStereotypeCh
 		try {
 			verify(main, getPath(SampleContainsTransformerView.class), expected);
 			fail("CheckstyleException should have been thrown");
-		} catch (CheckstyleException ex) {
-			assertThat(ex.getCause()).isNotNull().isInstanceOf(IllegalArgumentException.class);
-			assertThat(ex.getCause().getMessage()).contains(
+		} catch (IllegalArgumentException ex) {
+			assertThat(ex.getMessage()).contains(
 					"The additional configuration for from dependency transformer contains a dependency to transformer that is not part of the central configuration.");
 		}
 	}
@@ -76,7 +68,7 @@ public class StereotypeCheckConfigurationReaderTest extends AbstractStereotypeCh
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	@Test(expected = CheckstyleException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void invalidXMLConfigurationFileThrowsCheckstyleException() throws IOException, Exception {
 		DefaultConfiguration main = createCheckConfig(TreeWalker.class);
 		final DefaultConfiguration checkConfig = createCheckConfig(StereotypeCheck.class);
@@ -85,7 +77,7 @@ public class StereotypeCheckConfigurationReaderTest extends AbstractStereotypeCh
 		final String[] expected = { "" };
 		try {
 			verify(main, getPath(SampleIs.class), expected);
-		} catch (CheckstyleException ex) {
+		} catch (IllegalArgumentException ex) {
 			assertThat(ex.getMessage()).contains("Attribute 'to' must appear on element 'dependency'");
 			throw ex;
 		}
@@ -97,7 +89,7 @@ public class StereotypeCheckConfigurationReaderTest extends AbstractStereotypeCh
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	@Test(expected = CheckstyleException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void duplicateStereotypeConfigurationThrowsCheckstyleException() throws IOException, Exception {
 		DefaultConfiguration main = createCheckConfig(TreeWalker.class);
 		final DefaultConfiguration checkConfig = createCheckConfig(StereotypeCheck.class);
@@ -106,7 +98,7 @@ public class StereotypeCheckConfigurationReaderTest extends AbstractStereotypeCh
 		final String[] expected = { "" };
 		try {
 			verify(main, getPath(SampleIs.class), expected);
-		} catch (CheckstyleException ex) {
+		} catch (IllegalArgumentException ex) {
 			assertThat(ex.getMessage()).contains("There are multiple occurrences of ID value 'producer'");
 			throw ex;
 		}
@@ -144,9 +136,8 @@ public class StereotypeCheckConfigurationReaderTest extends AbstractStereotypeCh
 		try {
 			verify(main, getPath(SampleIs.class), expected);
 			fail("CheckstyleException should have been thrown");
-		} catch (CheckstyleException ex) {
-			assertThat(ex).hasCauseExactlyInstanceOf(IllegalArgumentException.class);
-			assertThat(ex.getCause()).hasMessageContaining("There is a cycle in dependency-configuration:")
+		} catch (IllegalArgumentException ex) {
+			assertThat(ex).hasMessageContaining("There is a cycle in dependency-configuration:")
 					.hasMessageContaining("dto").hasMessageContaining("view").hasMessageContaining("transformer");
 
 		}
@@ -167,9 +158,8 @@ public class StereotypeCheckConfigurationReaderTest extends AbstractStereotypeCh
 		try {
 			verify(main, getPath(SampleIs.class), expected);
 			fail("CheckstyleException");
-		} catch (CheckstyleException ex) {
-			assertThat(ex).hasCauseExactlyInstanceOf(IllegalArgumentException.class);
-			assertThat(ex.getCause())
+		} catch (IllegalArgumentException ex) {
+			assertThat(ex)
 					.hasMessage("No Property 'file' defined for Check info.novatec.ita.check.StereotypeCheck");
 		}
 	}
@@ -190,9 +180,8 @@ public class StereotypeCheckConfigurationReaderTest extends AbstractStereotypeCh
 		try {
 			verify(main, getPath(SampleIs.class), expected);
 			fail("CheckstyleException");
-		} catch (CheckstyleException ex) {
-			assertThat(ex).hasCauseExactlyInstanceOf(IllegalArgumentException.class);
-			assertThat(ex.getCause()).hasMessage(
+		} catch (IllegalArgumentException ex) {
+			assertThat(ex).hasMessage(
 					"File defined in property 'file' of Check info.novatec.ita.check.StereotypeCheck does not exist src/test/resources/stereotypeNotExist.xml");
 		}
 	}

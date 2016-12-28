@@ -18,10 +18,11 @@ package info.novatec.ita.check;
 import java.io.File;
 import java.util.logging.Logger;
 
-import com.puppycrawl.tools.checkstyle.api.Check;
+import com.puppycrawl.tools.checkstyle.api.AbstractCheck;
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.FullIdent;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+import com.puppycrawl.tools.checkstyle.utils.TokenUtils;
 
 import info.novatec.ita.check.config.StereotypeCheckConfiguration;
 import info.novatec.ita.check.config.StereotypeCheckReader;
@@ -32,7 +33,7 @@ import info.novatec.ita.check.config.StereotypeCheckReader;
  * 
  * @author Volker Koch (volker.koch@novatec-gmbh.de)
  */
-public class StereotypeCheck extends Check {
+public class StereotypeCheck extends AbstractCheck {
 
 	private static final Logger logger = Logger.getLogger(StereotypeCheck.class.getCanonicalName());
 
@@ -270,7 +271,7 @@ public class StereotypeCheck extends Check {
 	private void logAstDetails(DetailAST ast) {
 		logger.finest("=================================== visiting " + ast);
 		logger.finest("ast.getText() " + ast.getText());
-		logger.finest("ast.getType() " + TokenTypes.getTokenName(ast.getType()));
+		logger.finest("ast.getType() " + TokenUtils.getTokenName(ast.getType()));
 		logger.finest("ast.getLineNo() " + ast.getLineNo());
 	}
 
