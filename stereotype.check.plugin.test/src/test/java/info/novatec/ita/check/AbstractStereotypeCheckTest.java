@@ -77,13 +77,13 @@ public class AbstractStereotypeCheckTest extends BaseFileSetCheckTestSupport {
 	 * puppycrawl.tools.checkstyle.Checker, java.io.File[], java.lang.String,
 	 * java.lang.String[])
 	 */
-	protected void verify(Checker checker, File[] processedFiles, String messageFileName, String[] expectedErrorTexts)
+	protected void verify(Checker checker, File[] processedFiles, String messageFileName, String... expectedErrorTexts)
 			throws Exception {
 		this.stream.flush();
 		int numberOfErrors = checker.process(Arrays.asList(processedFiles));
 
 		LineNumberReader errors = new LineNumberReader(
-				new InputStreamReader(new ByteArrayInputStream(this.BAOS.toByteArray())));
+				new InputStreamReader(new ByteArrayInputStream(this.stream.toByteArray())));
 
 		for (int i = 0; i < expectedErrorTexts.length; ++i) {
 			String actual = errors.readLine();
