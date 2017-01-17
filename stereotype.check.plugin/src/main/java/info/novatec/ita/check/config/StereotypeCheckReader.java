@@ -35,7 +35,7 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.util.StreamReaderDelegate;
-import javax.xml.transform.stax.StAXSource;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
@@ -392,17 +392,24 @@ public class StereotypeCheckReader {
 	private static StereotypeCheckConfiguration read(File file, String checkstyleStereotypeXsd,
 			StereotypeCheckConfiguration additionalCheckCfg)
 			throws XMLStreamException, IllegalArgumentException, SAXException, IOException {
-		XMLStreamReader reader = XMLInputFactory.newInstance()
-				.createXMLStreamReader(new BufferedInputStream(new FileInputStream(file)));
-		StereotypeCheckConfigurationReader delegate = new StereotypeCheckConfigurationReader(reader,
-				additionalCheckCfg);
 
+		//Validate with StreamSource because Stax Validation is not provided with every implementation of JAXP
 		SchemaFactory schemafactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 		Schema schema = schemafactory
 				.newSchema(StereotypeCheckReader.class.getClassLoader().getResource(checkstyleStereotypeXsd));
 
 		Validator validator = schema.newValidator();
-		validator.validate(new StAXSource(delegate));
+		validator.validate(new StreamSource(file));
+
+		//Parse with Stax
+		XMLStreamReader reader = XMLInputFactory.newInstance()
+				.createXMLStreamReader(new BufferedInputStream(new FileInputStream(file)));
+		StereotypeCheckConfigurationReader delegate = new StereotypeCheckConfigurationReader(reader,
+				additionalCheckCfg);
+		
+		while (delegate.hasNext()){
+			delegate.next();
+		}
 
 		return delegate.getConfig();
 	}
