@@ -85,7 +85,7 @@ public class StereotypeCheck extends Check {
 		File file = new File(this.filename);
 		if (!file.exists()) {
 			throw new IllegalArgumentException("File defined in property 'file' of Check " + getClass().getName()
-					+ " does not exist " + this.filename);
+					+ " does not exist " + file.getAbsolutePath());
 		}
 		this.stereotypeCheckConfig = StereotypeCheckReader.read(file);
 	}
