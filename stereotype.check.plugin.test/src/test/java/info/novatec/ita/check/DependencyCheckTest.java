@@ -36,6 +36,8 @@ import info.novatec.ita.check.testclasses.app1.main.bl.is.tf.SampleTf;
 import info.novatec.ita.check.testclasses.app1.main.bl.is.tf.SampleWithWrongDepencencyTf;
 import info.novatec.ita.check.testclasses.app1.main.ul.wt.test.SampleContainsTransformerView;
 import info.novatec.ita.check.testclasses.app1.main.ul.wt.test.SampleViewContainsView;
+import info.novatec.ita.check.testclasses.app1.main.util.ReferencingUtilOutsideApplicationUtil;
+import info.novatec.ita.check.testoutsideapplication.util.Util;
 
 /**
  * Tests to check allowed and disallowed dependencies between stereotypes.
@@ -116,6 +118,21 @@ public class DependencyCheckTest extends AbstractStereotypeCheckTest {
 		DefaultConfiguration main = createDefaultConfig();
 		final String[] expected = {};
 		verify(main, getPath(SampleWithDependencyOutsideApplicationIs.class), expected);
+	}
+
+	/**
+	 * The {@link ReferencingUtilOutsideApplicationUtil} references its
+	 * stereotype interface {@link Util}, which is not part of the application
+	 * and Util can not reference other Utils.
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void utilReferencingItsStereotypeInterfaceOutsideApplicationHasNoViolation() throws Exception {
+		DefaultConfiguration main = createConfig(
+				"src/test/resources/stereotype-util-references-class-outside-application.xml");
+		final String[] expected = {};
+		verify(main, getPath(ReferencingUtilOutsideApplicationUtil.class), expected);
 	}
 
 	/**
