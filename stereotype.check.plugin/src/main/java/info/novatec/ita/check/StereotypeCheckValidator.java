@@ -58,8 +58,12 @@ public class StereotypeCheckValidator {
 	 */
 	void validate(DetailAST ast, ClassInfo classToCheck) {
 		logger.fine("ClassInfo " + classToCheck);
+		if (!check.getConfig().isInApplicationPackage(classToCheck.getFullClassName())){
+			logger.fine("Class is not part of an application package "+classToCheck.getFullClassName());
+			return;
+		}
 		if (classToCheck.isExcluded(check.getConfig().getExcludedClasses())) {
-			logger.fine("Class is a excluded by configuration.");
+			logger.fine("Class is a excluded by configuration: "+classToCheck.getFullClassName());
 			return;
 		}
 		// check

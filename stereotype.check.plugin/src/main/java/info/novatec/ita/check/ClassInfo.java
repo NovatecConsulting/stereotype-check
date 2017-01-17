@@ -23,6 +23,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 
 import info.novatec.ita.check.config.StereotypeConfiguration;
@@ -398,6 +400,14 @@ class ClassInfo {
 	 */
 	public String getPackageName() {
 		return this.packageName;
+	}
+	
+	/**
+	 * Get the class name including the package. 
+	 * @return The class name including the package. 
+	 */
+	public String getFullClassName(){
+		return StringUtils.defaultString(packageName, "")+"."+className;
 	}
 
 	/**
