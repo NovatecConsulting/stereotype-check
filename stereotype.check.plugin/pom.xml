@@ -75,42 +75,15 @@
 					<plugin>
 						<groupId>org.sonatype.plugins</groupId>
 						<artifactId>nexus-staging-maven-plugin</artifactId>
-						<version>1.6.7</version>
-						<extensions>true</extensions>
-						<configuration>
-							<serverId>oss.sonatype.org</serverId>
-							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-							<description>${project.version}</description>
-						</configuration>
-						<executions>
-							<execution>
-								<id>deploy-to-sonatype</id>
-								<phase>deploy</phase>
-								<goals>
-									<goal>deploy</goal>
-									<goal>release</goal>
-								</goals>
-							</execution>
-						</executions>
 					</plugin>
 					<plugin>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.6</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
 					</plugin>
 				</plugins>
 			</build>
 		</profile>
 	</profiles>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>com.puppycrawl.tools</groupId>
