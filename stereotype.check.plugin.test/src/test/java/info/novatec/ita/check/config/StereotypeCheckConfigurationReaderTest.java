@@ -192,8 +192,8 @@ public class StereotypeCheckConfigurationReaderTest extends AbstractStereotypeCh
 			fail("CheckstyleException");
 		} catch (CheckstyleException ex) {
 			assertThat(ex).hasCauseExactlyInstanceOf(IllegalArgumentException.class);
-			assertThat(ex.getCause()).hasMessage(
-					"File defined in property 'file' of Check info.novatec.ita.check.StereotypeCheck does not exist src/test/resources/stereotypeNotExist.xml");
+			assertThat(ex.getCause()).hasMessageStartingWith("File defined in property 'file' of Check info.novatec.ita.check.StereotypeCheck does not exist ");
+			assertThat(ex.getCause()).hasMessageEndingWith("src/test/resources/stereotypeNotExist.xml");
 		}
 	}
 
