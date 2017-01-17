@@ -15,20 +15,20 @@
  *******************************************************************************/
 package info.novatec.ita.check;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
 import java.util.Arrays;
+
 import com.puppycrawl.tools.checkstyle.BaseFileSetCheckTestSupport;
 import com.puppycrawl.tools.checkstyle.Checker;
 import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 import com.puppycrawl.tools.checkstyle.TreeWalker;
 import com.puppycrawl.tools.checkstyle.api.Configuration;
-
-import info.novatec.ita.check.StereotypeCheck;
 
 public class AbstractStereotypeCheckTest extends BaseFileSetCheckTestSupport {
 

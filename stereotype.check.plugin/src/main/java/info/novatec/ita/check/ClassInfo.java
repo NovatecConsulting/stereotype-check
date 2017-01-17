@@ -399,6 +399,20 @@ class ClassInfo {
 	public String getPackageName() {
 		return this.packageName;
 	}
+	
+	/**
+	 * Get the class name including the package. 
+	 * @return The class name including the package. 
+	 */
+	public String getFullClassName(){
+		String result = "";
+		if (packageName != null){
+			result += packageName;
+			result+=".";
+		}
+		result +=className;
+		return result;
+	}
 
 	/**
 	 * Gets {@link #annotations}.

@@ -36,6 +36,7 @@ import info.novatec.ita.check.testclasses.app1.main.bl.is.tf.SampleTf;
 import info.novatec.ita.check.testclasses.app1.main.bl.is.tf.SampleWithWrongDepencencyTf;
 import info.novatec.ita.check.testclasses.app1.main.ul.wt.test.SampleContainsTransformerView;
 import info.novatec.ita.check.testclasses.app1.main.ul.wt.test.SampleViewContainsView;
+import info.novatec.ita.check.testoutsideapplication.util.NotToCheckUtil;
 
 /**
  * Tests to check allowed and disallowed dependencies between stereotypes.
@@ -116,6 +117,20 @@ public class DependencyCheckTest extends AbstractStereotypeCheckTest {
 		DefaultConfiguration main = createDefaultConfig();
 		final String[] expected = {};
 		verify(main, getPath(SampleWithDependencyOutsideApplicationIs.class), expected);
+	}
+
+	/**
+	 * The {@link NotToCheckUtil} is not in a application package and should be
+	 * ignored by the check. If it were in a application package it would
+	 * contain errors.
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void classesOutsideApplicationPackageIsIgnored() throws Exception {
+		DefaultConfiguration main = createDefaultConfig();
+		final String[] expected = {};
+		verify(main, getPath(NotToCheckUtil.class), expected);
 	}
 
 	/**
