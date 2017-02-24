@@ -92,6 +92,8 @@ public class StereotypeCheckReader {
 		/** The additional config previously read. */
 		private StereotypeCheckConfiguration additionalCheckCfg;
 		private Boolean cfgIsOverridable;
+		/** Are we reading the additionalCfg.*/
+		private boolean readingAdditionalCfg;
 
 		/**
 		 * Creates a delegate reader to to reading and validation in one step.
@@ -99,12 +101,17 @@ public class StereotypeCheckReader {
 		 * @param reader
 		 *            The original reader
 		 * @param additionalCheckCfg
-		 *            The additional config previously read.
+		 *            The additional config previously read. Is null when
+		 *            reading central config and there was no additional config
+		 *            or when reading the additional config.
+		 * @param readingAdditionalCfg
+		 *            Are we reading the additionalCfg.
 		 */
 		private StereotypeCheckConfigurationReader(XMLStreamReader reader,
-				StereotypeCheckConfiguration additionalCheckCfg) {
+				StereotypeCheckConfiguration additionalCheckCfg, boolean readingAdditionalCfg) {
 			super(reader);
 			this.additionalCheckCfg = additionalCheckCfg;
+			this.readingAdditionalCfg = readingAdditionalCfg;
 		}
 
 		/** {@inheritDoc} */
@@ -177,8 +184,7 @@ public class StereotypeCheckReader {
 		}
 
 		private void addBaseClass() {
-			cfgIsOverridable = cfgIsOverridable(getAttributeValue(ALLOWOVERRIDE), ConfigurationName.baseclass,
-					config);
+			cfgIsOverridable = cfgIsOverridable(getAttributeValue(ALLOWOVERRIDE), ConfigurationName.baseclass, config);
 			if (additionCfg == null) {
 				OverrideMode overrideMode = OverrideMode.valueOfWithDefault(getAttributeValue("overridemode"));
 				config.setOverrideMode(ConfigurationName.baseclass, overrideMode);
@@ -203,8 +209,7 @@ public class StereotypeCheckReader {
 		}
 
 		private void addInterface() {
-			cfgIsOverridable = cfgIsOverridable(getAttributeValue(ALLOWOVERRIDE), ConfigurationName.INTERFACE,
-					config);
+			cfgIsOverridable = cfgIsOverridable(getAttributeValue(ALLOWOVERRIDE), ConfigurationName.INTERFACE, config);
 			if (additionCfg == null) {
 				OverrideMode overrideMode = OverrideMode.valueOfWithDefault(getAttributeValue("overridemode"));
 				config.setOverrideMode(ConfigurationName.INTERFACE, overrideMode);
@@ -229,8 +234,7 @@ public class StereotypeCheckReader {
 
 		private void createAnnotation() {
 			annotationConfig = new AnnotationConfiguration();
-			cfgIsOverridable = cfgIsOverridable(getAttributeValue(ALLOWOVERRIDE), ConfigurationName.ANNOTATION,
-					config);
+			cfgIsOverridable = cfgIsOverridable(getAttributeValue(ALLOWOVERRIDE), ConfigurationName.ANNOTATION, config);
 			if (additionCfg != null && cfgIsOverridable) {
 				for (AnnotationConfiguration annotationCfg : additionCfg.getAnnotationConfigs()) {
 					annotationConfig.setAnnotationnameCondition(annotationCfg.getAnnotationNameCondition());
@@ -253,8 +257,8 @@ public class StereotypeCheckReader {
 			if (config.getId() == null) {
 				throw new IllegalArgumentException("No id defined for " + config.getId() + ": " + location(this));
 			}
-			if (!config.hasSufficientCondition() && additionalCheckCfg == null) {
-				throw new IllegalArgumentException("There must be one sufficient condition to idenitfy the stereotype: "
+			if (!config.hasSufficientCondition() && !readingAdditionalCfg) {
+				throw new IllegalArgumentException("There must be at least one sufficient condition to idenitfy the stereotype: "
 						+ config.getId() + ": " + location(this));
 			}
 			configs.put(config.getId(), config);
@@ -285,7 +289,7 @@ public class StereotypeCheckReader {
 		private void addDependency() {
 			StereotypeIdentifier from = StereotypeIdentifier.of(getAttributeValue("from"));
 			StereotypeIdentifier to = StereotypeIdentifier.of(getAttributeValue("to"));
-			String allowedString = getAttributeValue( "allowed");
+			String allowedString = getAttributeValue("allowed");
 
 			DependencyConfiguration dependencyConfig = dependencies.get(from);
 			if (dependencyConfig == null) {
@@ -383,6 +387,8 @@ public class StereotypeCheckReader {
 	 * @param additionalCheckCfg
 	 *            a previously read configuration which may override parts of
 	 *            the configuration read by the file.
+	 * @param readingAdditionalCfg
+	 *            Are we reading the additionalCfg.
 	 * @return the configuration.
 	 * @throws XMLStreamException
 	 * @throws IllegalArgumentException
@@ -390,10 +396,11 @@ public class StereotypeCheckReader {
 	 * @throws IOException
 	 */
 	private static StereotypeCheckConfiguration read(File file, String checkstyleStereotypeXsd,
-			StereotypeCheckConfiguration additionalCheckCfg)
-			throws XMLStreamException, IllegalArgumentException, SAXException, IOException {
+			StereotypeCheckConfiguration additionalCheckCfg, boolean readingAdditionalCfg)
+					throws XMLStreamException, IllegalArgumentException, SAXException, IOException {
 
-		//Validate with StreamSource because Stax Validation is not provided with every implementation of JAXP
+		// Validate with StreamSource because Stax Validation is not provided
+		// with every implementation of JAXP
 		SchemaFactory schemafactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 		Schema schema = schemafactory
 				.newSchema(StereotypeCheckReader.class.getClassLoader().getResource(checkstyleStereotypeXsd));
@@ -401,13 +408,13 @@ public class StereotypeCheckReader {
 		Validator validator = schema.newValidator();
 		validator.validate(new StreamSource(file));
 
-		//Parse with Stax
+		// Parse with Stax
 		XMLStreamReader reader = XMLInputFactory.newInstance()
 				.createXMLStreamReader(new BufferedInputStream(new FileInputStream(file)));
 		StereotypeCheckConfigurationReader delegate = new StereotypeCheckConfigurationReader(reader,
-				additionalCheckCfg);
-		
-		while (delegate.hasNext()){
+				additionalCheckCfg, readingAdditionalCfg);
+
+		while (delegate.hasNext()) {
 			delegate.next();
 		}
 
@@ -432,7 +439,7 @@ public class StereotypeCheckReader {
 				logger.info("File to override the default checkstyle-stereotype.xml found: "
 						+ stOverrideFile.getAbsolutePath());
 				additionalCheckCfg = StereotypeCheckReader.read(stOverrideFile, CHECKSTYLE_STEREOTYPE_OVERRIDE_XSD,
-						null);
+						null, true);
 				logger.info("A file to override the default checkstyle-stereotype.xml found and loaded");
 
 			} catch (XMLStreamException | IllegalArgumentException | SAXException | IOException e) {
@@ -441,7 +448,7 @@ public class StereotypeCheckReader {
 			}
 		}
 		try {
-			return read(file, CHECKSTYLE_STEREOTYPE_XSD, additionalCheckCfg);
+			return read(file, CHECKSTYLE_STEREOTYPE_XSD, additionalCheckCfg, false);
 		} catch (XMLStreamException | SAXException | IOException e) {
 			throw new IllegalArgumentException("File " + file.getAbsolutePath() + " is not valid: " + e.getMessage(),
 					e);
