@@ -25,7 +25,7 @@
 		<annotation name="javax.ejb.Remote" condition="necessary" />
 		<interface
 			name="info.novatec.ita.check.testclasses.core.fwk.api.bl.bs.BusinessService"
-			condition="sufficient" allowoverride="true" />
+			condition="necessary" allowoverride="true" />
 		<package
 			name="^([a-z]+[a-z0-9\.]*)\.shared(\.[a-z][a-z0-9]*)*\.bl\.bs(\.[a-z][a-z0-9]*)*$"
 			condition="sufficient" />
@@ -34,7 +34,7 @@
 	<stereotype id="businessservice2">
 		<postfix name="Bs2" condition="sufficient" />
 		<annotation name="javax.ejb.Remote" condition="necessary" />
-		<interface condition="sufficient" allowoverride="true">
+		<interface condition="necessary" allowoverride="true">
 			<interfacename
 				name="info.novatec.ita.check.testclasses.core.fwk.api.bl.bs.BusinessService2" />
 		</interface>
@@ -48,7 +48,7 @@
 		<annotation name="javax.ejb.Remote" condition="necessary" />
 		<interface
 			name="info.novatec.ita.check.testclasses.core.fwk.api.bl.bs.BusinessService3"
-			condition="sufficient" allowoverride="true" />
+			condition="necessary" allowoverride="true" />
 		<package
 			name="^([a-z]+[a-z0-9\.]*)\.shared(\.[a-z][a-z0-9]*)*\.bl\.bs3(\.[a-z][a-z0-9]*)*$"
 			condition="sufficient" />
