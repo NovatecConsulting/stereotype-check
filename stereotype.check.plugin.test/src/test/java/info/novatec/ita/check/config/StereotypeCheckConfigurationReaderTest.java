@@ -198,6 +198,23 @@ public class StereotypeCheckConfigurationReaderTest extends AbstractStereotypeCh
 	}
 
 	/**
+	 * Checks if the reader fails, when a override file removes the last sufficient condition.
+	 * 
+	 * @throws Exception
+	 *             in case of an unexpected test execution
+	 */
+	@Test
+	public void failsIfSufficientRemovedByOverride() throws Exception {
+		try {
+			StereotypeCheckReader.read(new File("src/test/resources/stereotypeSufficientRemovedByOverride.xml"));
+			fail("IllegalArgumentException");
+		} catch (IllegalArgumentException ex) {
+			assertThat(ex).hasMessageContaining(
+					"There must be one sufficient condition to idenitfy the stereotype: integrationservice");
+		}
+	}
+	
+	/**
 	 * Checks if a stereotype has minimum one sufficient condition.
 	 * 
 	 * @throws Exception
