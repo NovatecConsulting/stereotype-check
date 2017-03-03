@@ -276,7 +276,11 @@ public class StereotypeCheck extends Check {
 
 	private boolean isClassType(DetailAST ast) {
 		DetailAST firstChild = ast.getFirstChild();
-		if (firstChild.getType() == TokenTypes.IDENT || firstChild.getType() == TokenTypes.DOT) {
+		// In the declaration of a type, we get the type name from the childs of
+		// the type. If there are no childs or the child not of the right types
+		// the type declaration does not contain a classname
+		if (firstChild != null
+				&& (firstChild.getType() == TokenTypes.IDENT || firstChild.getType() == TokenTypes.DOT)) {
 			return true;
 		}
 		return false;

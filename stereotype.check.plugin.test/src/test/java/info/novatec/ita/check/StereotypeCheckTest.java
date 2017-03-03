@@ -24,6 +24,7 @@ import com.puppycrawl.tools.checkstyle.DefaultConfiguration;
 
 import info.novatec.ita.check.testclasses.app1.main.bl.bs.SampleBsBean;
 import info.novatec.ita.check.testclasses.app1.main.bl.bs.SampleTest;
+import info.novatec.ita.check.testclasses.app1.main.bl.bs.StreamBsBean;
 import info.novatec.ita.check.testclasses.app1.main.bl.is.Sample2Interfaces2Is;
 import info.novatec.ita.check.testclasses.app1.main.bl.is.Sample2InterfacesIs;
 import info.novatec.ita.check.testclasses.app1.main.bl.is.SampleIs;
@@ -69,6 +70,21 @@ import info.novatec.ita.check.testclasses.core.fwk.main.ts.VersionTsBean;
  */
 public class StereotypeCheckTest extends AbstractStereotypeCheckTest {
 
+
+	/**
+	 * The {@link SampleIs} is a valid integration service.
+	 * 
+	 * 
+	 * @throws Exception
+	 *             in case of an unexpected test execution
+	 */
+	@Test
+	public void testStreamBsBean() throws Exception {
+		DefaultConfiguration main = createDefaultConfig();
+		final String[] expected = {};
+		verify(main, getPath(StreamBsBean.class), expected);
+	}
+	
 	/**
 	 * The {@link SampleIs} is a valid integration service.
 	 * 
