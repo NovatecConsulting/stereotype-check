@@ -69,7 +69,8 @@
 	</modules>
 
 	<properties>
-		<tycho-version>0.26.0</tycho-version>
+		<checkstyle-version>8.0</checkstyle-version>
+		<tycho-version>1.0.0</tycho-version>
 		<coveralls-version>4.3.0</coveralls-version>
 		<jacoco-version>0.7.7.201606060606</jacoco-version>
 		<antrun-version>1.8</antrun-version>
@@ -79,14 +80,14 @@
 
 	<repositories>
 		<repository>
-			<id>eclipse-mars</id>
+			<id>eclipse-oxygen</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/mars</url>
+			<url>http://download.eclipse.org/releases/oxygen/</url>
 		</repository>
 		<repository>
 			<id>eclipse-cs</id>
 			<layout>p2</layout>
-			<url>http://sourceforge.net/projects/eclipse-cs/files/updatesite/6.5.0/</url>
+			<url>http://sourceforge.net/projects/eclipse-cs/files/updatesite/7.3.0/</url>
 		</repository>
 	</repositories>
 
@@ -172,8 +173,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.6.0</version>
 					<configuration>
-						<source>1.7</source>
-						<target>1.7</target>
+						<source>1.8</source>
+						<target>1.8</target>
 						<executable>${JAVA_1_8_HOME}/bin/javac</executable>
 					</configuration>
 				</plugin>
@@ -253,7 +254,7 @@
 			<dependency>
 				<groupId>com.puppycrawl.tools</groupId>
 				<artifactId>checkstyle</artifactId>
-				<version>6.5</version>
+				<version>${checkstyle-version}</version>
 				<exclusions>
 					<exclusion>
 						<groupId>com.sun</groupId>
@@ -264,7 +265,7 @@
 			<dependency>
 				<groupId>com.puppycrawl.tools</groupId>
 				<artifactId>checkstyle</artifactId>
-				<version>6.5</version>
+				<version>${checkstyle-version}</version>
 				<classifier>tests</classifier>
 				<scope>test</scope>
 				<exclusions>
