@@ -16,7 +16,7 @@
  -->
 
 <site>
-   <feature url="features/stereotype.check.feature_2.0.4.jar" id="stereotype.check.feature" version="2.0.4">
+   <feature url="features/stereotype.check.feature_2.0.5.jar" id="stereotype.check.feature" version="2.0.5">
       <category name="stereotype.check"/>
    </feature>
    <category-def name="stereotype.check" label="Stereotype Check Repository"/>
