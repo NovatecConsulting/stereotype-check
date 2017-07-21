@@ -17,7 +17,7 @@
 <feature
       id="stereotype.check.feature"
       label="Stereotype Checker"
-      version="3.0.0.qualifier">
+      version="3.0.0">
 
    <description>
       Stereotype Checker
