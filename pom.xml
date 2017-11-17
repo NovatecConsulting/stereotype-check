@@ -22,7 +22,7 @@
 	<groupId>info.novatec.ita</groupId>
 	<artifactId>stereotype.check</artifactId>
 	<packaging>pom</packaging>
-	<version>3.0.0</version>
+	<version>3.0.1</version>
 
 	<name>Stereotype Checker</name>
 	<description>Checkstyle plugin extension to verify imports and usage between classes</description>
