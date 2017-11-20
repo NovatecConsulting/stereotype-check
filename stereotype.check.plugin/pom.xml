@@ -20,7 +20,7 @@
 	<parent>
 		<groupId>info.novatec.ita</groupId>
 		<artifactId>stereotype.check</artifactId>
-		<version>3.0.1</version>
+		<version>3.0.2</version>
 	</parent>
 	<artifactId>stereotype.check.plugin</artifactId>
 	<packaging>eclipse-plugin</packaging>
@@ -40,7 +40,7 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	
 	<profiles>
 		<profile>
 			<id>deploy_maven</id>
@@ -88,6 +88,10 @@
 		<dependency>
 			<groupId>com.puppycrawl.tools</groupId>
 			<artifactId>checkstyle</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
 		</dependency>
 	</dependencies>
 </project>
