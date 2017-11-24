@@ -22,7 +22,7 @@
 	<groupId>info.novatec.ita</groupId>
 	<artifactId>stereotype.check</artifactId>
 	<packaging>pom</packaging>
-	<version>3.0.2</version>
+	<version>4.0.0</version>
 
 	<name>Stereotype Checker</name>
 	<description>Checkstyle plugin extension to verify imports and usage between classes</description>
@@ -87,7 +87,7 @@
 		<repository>
 			<id>eclipse-cs</id>
 			<layout>p2</layout>
-			<url>http://sourceforge.net/projects/eclipse-cs/files/updatesite/7.3.0/</url>
+			<url>http://eclipse-cs.sf.net/update</url>
 		</repository>
 	</repositories>
 
